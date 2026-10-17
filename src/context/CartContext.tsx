@@ -28,25 +28,29 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Load cart from localStorage on mount
+  // Load cart safely from localStorage on client mount
   useEffect(() => {
-    const savedCart = localStorage.getItem("sweet_bites_cart");
-    if (savedCart) {
-      try {
-        setCart(JSON.parse(savedCart));
-      } catch (e) {
-        console.error("Failed to parse cart", e);
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("sweet_bites_cart");
+      if (savedCart) {
+        try {
+          setCart(JSON.parse(savedCart));
+        } catch (e) {
+          console.error("Failed to parse cart", e);
+        }
       }
     }
   }, []);
 
-  // Save cart to localStorage
+  // Save cart safely to localStorage whenever cart state changes
   useEffect(() => {
-    localStorage.setItem("sweet_bites_cart", JSON.stringify(cart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("sweet_bites_cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
   const addToCart = (product: any, quantity: number) => {
-    setCart((prev) => {
+    setCart((prev: CartItem[]) => {
       const existingIndex = prev.findIndex((item) => item.id === product.id);
       if (existingIndex > -1) {
         const updated = [...prev];
@@ -69,7 +73,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const removeFromCart = (id: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    setCart((prev: CartItem[]) => prev.filter((item) => item.id !== id));
   };
 
   const updateQuantity = (id: string, quantity: number) => {
@@ -77,15 +81,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       removeFromCart(id);
       return;
     }
-    setCart((prev) =>
+    setCart((prev: CartItem[]) =>
       prev.map((item) => (item.id === id ? { ...item, quantity } : item)),
     );
   };
 
   const clearCart = () => setCart([]);
 
-  const totalPrice = cart.reduce((sum, item) => {
-    // If priced per unit/gram, calculate accordingly
+  const totalPrice = cart.reduce((sum: number, item: CartItem) => {
     return sum + item.price * item.quantity;
   }, 0);
 
