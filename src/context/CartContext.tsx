@@ -27,9 +27,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Load cart safely from localStorage on client mount
+  // Safely load cart from localStorage only after client mounts
   useEffect(() => {
+    setMounted(true);
     if (typeof window !== "undefined") {
       const savedCart = localStorage.getItem("sweet_bites_cart");
       if (savedCart) {
@@ -42,12 +44,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Save cart safely to localStorage whenever cart state changes
+  // Save cart to localStorage whenever cart state updates
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (mounted && typeof window !== "undefined") {
       localStorage.setItem("sweet_bites_cart", JSON.stringify(cart));
     }
-  }, [cart]);
+  }, [cart, mounted]);
 
   const addToCart = (product: any, quantity: number) => {
     setCart((prev: CartItem[]) => {
