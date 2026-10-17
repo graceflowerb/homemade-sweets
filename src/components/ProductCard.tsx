@@ -12,11 +12,13 @@ export default function ProductCard({ product }: { product: any }) {
   const [qty, setQty] = useState(minQty);
 
   const handleIncrement = () => {
-    setQty((prev) => prev + stepQty);
+    setQty((prev: number) => prev + stepQty);
   };
 
   const handleDecrement = () => {
-    setQty((prev) => (prev - stepQty >= minQty ? prev - stepQty : minQty));
+    setQty((prev: number) =>
+      prev - stepQty >= minQty ? prev - stepQty : minQty,
+    );
   };
 
   const handleAddToCart = () => {
