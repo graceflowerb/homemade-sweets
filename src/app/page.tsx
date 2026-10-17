@@ -3,13 +3,17 @@ import { Suspense } from "react";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 
-// Initialize the Supabase client for Server Components
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+// Helper function to lazily initialize Supabase client
+function getSupabaseServerClient() {
+  const supabaseUrl =
+    process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
+  const supabaseKey =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
+  return createClient(supabaseUrl, supabaseKey);
+}
 
 async function HeroSection() {
+  const supabase = getSupabaseServerClient();
   const { data: hero } = await supabase
     .from("hero_content")
     .select("*")
@@ -74,6 +78,7 @@ async function HeroSection() {
 }
 
 async function ProductList() {
+  const supabase = getSupabaseServerClient();
   const { data: products } = await supabase
     .from("products")
     .select("*")
@@ -96,6 +101,7 @@ async function ProductList() {
 }
 
 async function PromotionSection() {
+  const supabase = getSupabaseServerClient();
   const { data: promotions } = await supabase
     .from("promotions")
     .select("*")
