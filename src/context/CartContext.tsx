@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 export interface CartItem {
   id: string;
@@ -29,7 +29,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Safely load cart from localStorage only after client mounts
+  // Mark component as mounted and safely hydrate cart from localStorage
   useEffect(() => {
     setMounted(true);
     const savedCart = localStorage.getItem("sweet_bites_cart");
@@ -37,12 +37,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       try {
         setCart(JSON.parse(savedCart));
       } catch (e) {
-        console.error("Failed to parse cart", e);
+        console.error("Failed to parse cart from localStorage", e);
       }
     }
   }, []);
 
-  // Save cart to localStorage whenever cart state updates
+  // Sync state to localStorage only after mounting
   useEffect(() => {
     if (mounted) {
       localStorage.setItem("sweet_bites_cart", JSON.stringify(cart));
@@ -88,11 +88,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const clearCart = () => setCart([]);
 
-  // Use empty defaults during SSR/prerender to satisfy strict caching rules
+  // Use empty cart on server/prerender to prevent SSR/hydration mismatch
   const activeCart = mounted ? cart : [];
-  const totalPrice = activeCart.reduce((sum: number, item: CartItem) => {
-    return sum + item.price * item.quantity;
-  }, 0);
+  const totalPrice = activeCart.reduce(
+    (sum: number, item: CartItem) => sum + item.price * item.quantity,
+    0,
+  );
 
   return (
     <CartContext.Provider
@@ -114,6 +115,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
 export function useCart() {
   const context = useContext(CartContext);
-  if (!context) throw new Error("useCart must be used within a CartProvider");
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
   return context;
 }
