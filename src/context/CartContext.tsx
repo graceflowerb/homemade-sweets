@@ -32,21 +32,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Safely load cart from localStorage only after client mounts
   useEffect(() => {
     setMounted(true);
-    if (typeof window !== "undefined") {
-      const savedCart = localStorage.getItem("sweet_bites_cart");
-      if (savedCart) {
-        try {
-          setCart(JSON.parse(savedCart));
-        } catch (e) {
-          console.error("Failed to parse cart", e);
-        }
+    const savedCart = localStorage.getItem("sweet_bites_cart");
+    if (savedCart) {
+      try {
+        setCart(JSON.parse(savedCart));
+      } catch (e) {
+        console.error("Failed to parse cart", e);
       }
     }
   }, []);
 
   // Save cart to localStorage whenever cart state updates
   useEffect(() => {
-    if (mounted && typeof window !== "undefined") {
+    if (mounted) {
       localStorage.setItem("sweet_bites_cart", JSON.stringify(cart));
     }
   }, [cart, mounted]);
@@ -90,14 +88,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const clearCart = () => setCart([]);
 
-  const totalPrice = cart.reduce((sum: number, item: CartItem) => {
+  // Use empty defaults during SSR/prerender to satisfy strict caching rules
+  const activeCart = mounted ? cart : [];
+  const totalPrice = activeCart.reduce((sum: number, item: CartItem) => {
     return sum + item.price * item.quantity;
   }, 0);
 
   return (
     <CartContext.Provider
       value={{
-        cart,
+        cart: activeCart,
         addToCart,
         removeFromCart,
         updateQuantity,
