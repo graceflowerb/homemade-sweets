@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { useUser } from "@clerk/nextjs";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cart, setIsCartOpen } = useCart();
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
   const itemCount = cart.reduce((sum, item) => sum + 1, 0);
 
   return (
@@ -67,6 +67,19 @@ export default function Navbar() {
                 Admin CMS
               </Link>
             )}
+
+            {/* Authentication state via useUser hook */}
+            {isLoaded &&
+              (isSignedIn ? (
+                <UserButton afterSignOutUrl="/" />
+              ) : (
+                <Link
+                  href="/sign-in"
+                  className="text-sm font-medium text-neutral-600 hover:text-amber-600 px-3 py-2 transition"
+                >
+                  Sign In
+                </Link>
+              ))}
 
             {/* Shopping Cart Button */}
             <button
@@ -174,6 +187,24 @@ export default function Navbar() {
               </Link>
             </>
           )}
+
+          <div className="pt-2 border-t border-neutral-100 flex items-center justify-between">
+            {isLoaded &&
+              (isSignedIn ? (
+                <div className="flex items-center gap-2">
+                  <UserButton afterSignOutUrl="/" />
+                  <span className="text-sm text-neutral-600">Account</span>
+                </div>
+              ) : (
+                <Link
+                  href="/sign-in"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold text-amber-600 hover:text-amber-700"
+                >
+                  Admin Sign In &rarr;
+                </Link>
+              ))}
+          </div>
         </div>
       )}
     </header>
