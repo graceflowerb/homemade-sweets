@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { useUser } from "@clerk/nextjs";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cart, setIsCartOpen } = useCart();
+  const { isSignedIn } = useUser();
   const itemCount = cart.reduce((sum, item) => sum + 1, 0);
 
   return (
@@ -35,28 +37,36 @@ export default function Navbar() {
             >
               Menu
             </Link>
-            <Link
-              href="/dashboard/products/new"
-              className="text-sm font-medium text-amber-800 bg-amber-100/70 hover:bg-amber-100 px-3.5 py-1.5 rounded-lg border border-amber-200/60 transition"
-            >
-              + Add Product
-            </Link>
-            <Link
-              href="/dashboard/cms"
-              className="text-sm font-medium text-neutral-700 hover:text-amber-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-1.5 rounded-lg transition"
-            >
-              ⚙️ Store CMS
-            </Link>
+
+            {/* Conditionally show Admin links only when signed in */}
+            {isSignedIn && (
+              <>
+                <Link
+                  href="/dashboard/products/new"
+                  className="text-sm font-medium text-amber-800 bg-amber-100/70 hover:bg-amber-100 px-3.5 py-1.5 rounded-lg border border-amber-200/60 transition"
+                >
+                  + Add Product
+                </Link>
+                <Link
+                  href="/dashboard/cms"
+                  className="text-sm font-medium text-neutral-700 hover:text-amber-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-1.5 rounded-lg transition"
+                >
+                  ⚙️ Store CMS
+                </Link>
+              </>
+            )}
           </nav>
 
-          {/* Action / Admin & Cart Buttons */}
+          {/* Action / Auth & Cart Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/dashboard/cms"
-              className="px-4 py-2 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-xl shadow-sm transition"
-            >
-              Admin CMS
-            </Link>
+            {isSignedIn && (
+              <Link
+                href="/dashboard/cms"
+                className="px-4 py-2 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-xl shadow-sm transition"
+              >
+                Admin CMS
+              </Link>
+            )}
 
             {/* Shopping Cart Button */}
             <button
@@ -145,20 +155,25 @@ export default function Navbar() {
           >
             Menu
           </Link>
-          <Link
-            href="/dashboard/products/new"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-medium text-amber-700 font-semibold py-1"
-          >
-            + Add Product (Admin)
-          </Link>
-          <Link
-            href="/dashboard/cms"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-medium text-amber-700 font-semibold py-1"
-          >
-            ⚙️ Store CMS (Hero & Promos)
-          </Link>
+
+          {isSignedIn && (
+            <>
+              <Link
+                href="/dashboard/products/new"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-base font-medium text-amber-700 font-semibold py-1"
+              >
+                + Add Product (Admin)
+              </Link>
+              <Link
+                href="/dashboard/cms"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-base font-medium text-amber-700 font-semibold py-1"
+              >
+                ⚙️ Store CMS (Hero & Promos)
+              </Link>
+            </>
+          )}
         </div>
       )}
     </header>
