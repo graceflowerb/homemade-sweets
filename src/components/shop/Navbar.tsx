@@ -71,7 +71,7 @@ export default function Navbar() {
             {/* Authentication state via useUser hook */}
             {isLoaded &&
               (isSignedIn ? (
-                <UserButton afterSignOutUrl="/" />
+                <UserButton />
               ) : (
                 <Link
                   href="/sign-in"
@@ -192,7 +192,7 @@ export default function Navbar() {
             {isLoaded &&
               (isSignedIn ? (
                 <div className="flex items-center gap-2">
-                  <UserButton afterSignOutUrl="/" />
+                  <UserButton />
                   <span className="text-sm text-neutral-600">Account</span>
                 </div>
               ) : (
