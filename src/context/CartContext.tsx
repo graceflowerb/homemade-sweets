@@ -112,7 +112,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
 export function useCart() {
   const context = useContext(CartContext);
-  // Graceful fallback during SSR / static prerender validation passes
   if (!context) {
     return {
       cart: [],
