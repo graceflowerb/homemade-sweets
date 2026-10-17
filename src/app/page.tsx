@@ -1,10 +1,15 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@supabase/supabase-js";
 import { Suspense } from "react";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 
+// Initialize the Supabase client for Server Components
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+);
+
 async function HeroSection() {
-  const supabase = createClient();
   const { data: hero } = await supabase
     .from("hero_content")
     .select("*")
@@ -58,7 +63,9 @@ async function HeroSection() {
         )}
       </h1>
       <p
-        className={`text-lg md:text-xl mb-8 max-w-2xl ${heroImageUrl ? "text-neutral-100" : "text-neutral-600"}`}
+        className={`text-lg md:text-xl mb-8 max-w-2xl ${
+          heroImageUrl ? "text-neutral-100" : "text-neutral-600"
+        }`}
       >
         {heroDescription}
       </p>
@@ -67,7 +74,6 @@ async function HeroSection() {
 }
 
 async function ProductList() {
-  const supabase = createClient();
   const { data: products } = await supabase
     .from("products")
     .select("*")
@@ -90,7 +96,6 @@ async function ProductList() {
 }
 
 async function PromotionSection() {
-  const supabase = createClient();
   const { data: promotions } = await supabase
     .from("promotions")
     .select("*")
@@ -145,7 +150,6 @@ async function PromotionSection() {
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
       <Suspense
         fallback={
           <div className="py-20 text-center text-neutral-400">
@@ -156,7 +160,6 @@ export default function Home() {
         <HeroSection />
       </Suspense>
 
-      {/* Gallery Section */}
       <section id="gallery" className="py-8 px-6 md:px-12 max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8">
           Featured Menu
@@ -172,7 +175,6 @@ export default function Home() {
         </Suspense>
       </section>
 
-      {/* Promotions Section */}
       <Suspense fallback={null}>
         <PromotionSection />
       </Suspense>
