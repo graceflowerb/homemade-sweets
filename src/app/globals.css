@@ -8,8 +8,17 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* 1. Map default Tailwind font utilities */
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif-4), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* 2. Map your custom font utilities */
+  --font-mulish: var(--font-mulish), sans-serif;
+  --font-arabic: var(--font-noto-sans-arabic), sans-serif;
+  --font-radio: var(--font-radio-canada), sans-serif;
+  --font-vollkorn: var(--font-vollkorn), serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,7 +31,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Set DM Sans as the default font for the entire app */
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 .no-scrollbar::-webkit-scrollbar {

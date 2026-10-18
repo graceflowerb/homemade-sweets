@@ -42,7 +42,7 @@ export default function ProductCard({ product }: { product: any }) {
       </div>
 
       <div className="p-5 flex flex-col flex-grow">
-        <h3 className="font-semibold text-lg text-neutral-900 mb-1">
+        <h3 className="font-semibold font-mulish font-radio fon text-lg text-neutral-900 mb-1">
           {product.title}
         </h3>
         <p className="text-neutral-500 text-sm line-clamp-2 mb-4 flex-grow">
@@ -84,9 +84,9 @@ export default function ProductCard({ product }: { product: any }) {
 
           <button
             onClick={handleAddToCart}
-            className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
+            className="font-radio font-vollkorn font-arabic font-serif font-sans font-mulish w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
           >
-            Add to Cart 🛒
+            Add to Cart
           </button>
         </div>
       </div>
