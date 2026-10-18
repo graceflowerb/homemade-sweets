@@ -242,7 +242,7 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-sm font-semibold text-amber-600 hover:text-amber-700"
                 >
-                  Admin Sign In &rarr;
+                  Sign In &rarr;
                 </Link>
               ))}
           </div>
