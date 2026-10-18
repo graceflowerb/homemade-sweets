@@ -19,7 +19,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-2xl">🧁</span>
             <span className="font-extrabold text-xl tracking-tight text-neutral-900 group-hover:text-amber-600 transition">
-              Sweet<span className="text-amber-600">Bites</span>
+              S<span className="text-amber-600">Bites</span>
             </span>
           </Link>
 
