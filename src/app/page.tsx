@@ -30,7 +30,7 @@ async function HeroSection() {
 
   return (
     <section
-      className={`relative py-24 px-6 md:px-12 text-center max-w-5xl mx-auto flex flex-col items-center justify-center rounded-3xl my-8 overflow-hidden shadow-sm ${
+      className={`relative py-24 px-6 md:px-12 text-center max-w-5xl mx-auto flex flex-col items-center justify-center rounded-[0.04] my-8 overflow-hidden shadow-sm ${
         heroImageUrl ? "text-white" : "text-neutral-900 bg-brand-50/40" // 👈 Changed to brand-50
       }`}
       style={
@@ -45,7 +45,7 @@ async function HeroSection() {
     >
       {/* BADGE */}
       <span
-        className={`font-sans px-4 py-1.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase mb-6 ${
+        className={`font-sans px-4 py-1.5 rounded-[0.04] text-xs font-semibold tracking-[0.15em] uppercase mb-6 ${
           heroImageUrl
             ? "bg-brand-500 text-white" // 👈 Changed to brand-500
             : "bg-brand-100 text-brand-800" // 👈 Changed to brand-100 & brand-800
@@ -55,7 +55,7 @@ async function HeroSection() {
       </span>
 
       {/* TITLE */}
-      <h1 className="font-vollkorn text-4xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-sm leading-[1.1]">
+      <h1 className="font-vollkorn text-4xl md:text-6xl  tracking-[0.07em] mb-6 drop-shadow-sm leading-[1.1]">
         {heroTitle.includes("Love") ? (
           <>
             {heroTitle.replace("Love", "")}
