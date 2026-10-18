@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: any }) {
   };
 
   return (
-    <div className="flex-shrink-0 bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden snap-start flex flex-col justify-between group hover:shadow-md transition w-full">
+    <div className="flex-shrink-0 bg-white rounded-[3px] shadow-sm border border-neutral-100 overflow-hidden snap-start flex flex-col justify-between group hover:shadow-md transition w-full">
       <div className="relative h-64 w-full bg-neutral-100 overflow-hidden">
         {product.image_url && product.image_url.startsWith("http") ? (
           <img
@@ -57,17 +57,17 @@ export default function ProductCard({ product }: { product: any }) {
             </span>
             <span className="text-xs text-neutral-400 ml-1">/ {unitType}</span>
           </div>
-          <span className="text-xs bg-amber-50 text-amber-700 font-medium px-2.5 py-1 rounded-md">
+          <span className="text-xs bg-amber-50 text-amber-700 font-medium px-2.5 py-1 rounded-[4px]">
             Min: {minQty} {unitType}
           </span>
         </div>
 
         {/* Interactive Quantity Selector & Add to Cart Button */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between bg-neutral-50 p-1.5 rounded-xl border border-neutral-200">
+          <div className="flex items-center justify-between bg-neutral-50 p-1.5 rounded-[4px] border border-neutral-200">
             <button
               onClick={handleDecrement}
-              className="w-8 h-8 rounded-lg bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition flex items-center justify-center text-sm"
+              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition flex items-center justify-center text-sm"
             >
               -
             </button>
@@ -76,7 +76,7 @@ export default function ProductCard({ product }: { product: any }) {
             </span>
             <button
               onClick={handleIncrement}
-              className="w-8 h-8 rounded-lg bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition flex items-center justify-center text-sm"
+              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition flex items-center justify-center text-sm"
             >
               +
             </button>
@@ -84,7 +84,7 @@ export default function ProductCard({ product }: { product: any }) {
 
           <button
             onClick={handleAddToCart}
-            className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm rounded-xl transition shadow-xs active:scale-[0.98]"
+            className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
           >
             Add to Cart 🛒
           </button>
