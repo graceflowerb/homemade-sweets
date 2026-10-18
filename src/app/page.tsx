@@ -86,13 +86,13 @@ async function ProductList() {
     .order("created_at", { ascending: false });
 
   return (
-    <div className="flex gap-6 overflow-x-auto pb-6 pt-2 no-scrollbar snap-x scroll-smooth">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-6 pt-2">
       {products && products.length > 0 ? (
         products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))
       ) : (
-        <div className="w-full py-12 text-center text-neutral-500 bg-white rounded-2xl border border-neutral-100">
+        <div className="col-span-full py-12 text-center text-neutral-500 bg-white rounded-2xl border border-neutral-100">
           No treats uploaded yet.
         </div>
       )}
