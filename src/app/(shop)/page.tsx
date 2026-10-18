@@ -14,15 +14,15 @@ export default async function Home() {
     .order("created_at", { ascending: false });
 
   return (
-    <div className="min-h-screen bg-amber-50/30 text-neutral-800">
+    <div className="min-h-screen bg-brand-50/30 text-neutral-800">
       {/* Hero Section */}
       <section className="relative py-20 px-6 md:px-12 text-center max-w-4xl mx-auto flex flex-col items-center justify-center">
-        <span className="px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold tracking-wide uppercase mb-4">
+        <span className="px-4 py-1.5 rounded-full bg-brand-100 text-brand-800 text-xs font-semibold tracking-wide uppercase mb-4">
           Freshly Baked Daily 🧁
         </span>
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-neutral-900 mb-6">
           Homemade Sweets Crafted With{" "}
-          <span className="text-amber-600">Love</span>
+          <span className="text-brand-600">Love</span>
         </h1>
         <p className="text-lg md:text-xl text-neutral-600 mb-8 max-w-2xl">
           Discover artisan cookies, rich brownies, and custom treats made from
@@ -32,7 +32,7 @@ export default async function Home() {
         <div className="flex gap-4">
           <a
             href="#gallery"
-            className="px-8 py-3.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-xl shadow-lg shadow-amber-600/20 transition"
+            className="px-8 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-xl shadow-lg shadow-brand-600/20 transition"
           >
             Explore Menu
           </a>
@@ -82,10 +82,10 @@ export default async function Home() {
                     {product.description}
                   </p>
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-neutral-100">
-                    <span className="text-lg font-bold text-amber-700">
+                    <span className="text-lg font-bold text-brand-700">
                       ${product.price.toFixed(2)}
                     </span>
-                    <span className="text-xs bg-amber-50 text-amber-700 font-medium px-2.5 py-1 rounded-md">
+                    <span className="text-xs bg-brand-50 text-brand-700 font-medium px-2.5 py-1 rounded-md">
                       Fresh Batch
                     </span>
                   </div>

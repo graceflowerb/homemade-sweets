@@ -93,7 +93,7 @@ export default function NewProductPage() {
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
             placeholder="e.g. Belgian Chocolate Brownie"
           />
         </div>
@@ -105,7 +105,7 @@ export default function NewProductPage() {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
             placeholder="Describe ingredients, taste, and texture..."
           />
         </div>
@@ -118,7 +118,7 @@ export default function NewProductPage() {
             <select
               value={unitType}
               onChange={(e) => setUnitType(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none bg-white"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none bg-white"
             >
               <option value="pcs">Pieces (pcs)</option>
               <option value="grams">Grams (g)</option>
@@ -135,7 +135,7 @@ export default function NewProductPage() {
               required
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
               placeholder="12.99"
             />
           </div>
@@ -151,7 +151,7 @@ export default function NewProductPage() {
               step="any"
               value={minQty}
               onChange={(e) => setMinQty(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
               placeholder="e.g. 250 for 250g"
             />
             <p className="text-xs text-neutral-400 mt-1">
@@ -167,7 +167,7 @@ export default function NewProductPage() {
               step="any"
               value={stepQty}
               onChange={(e) => setStepQty(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
               placeholder="e.g. 50g steps"
             />
             <p className="text-xs text-neutral-400 mt-1">
@@ -184,14 +184,14 @@ export default function NewProductPage() {
             type="file"
             accept="image/*"
             onChange={(e) => setFile(e.target.files?.[0] || null)}
-            className="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
+            className="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition shadow-md disabled:opacity-50"
+          className="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition shadow-md disabled:opacity-50"
         >
           {loading ? "Publishing..." : "Add Treat to Store"}
         </button>

@@ -56,7 +56,7 @@ export default function ProductCard({ product }: { product: any }) {
         <div className="flex items-center justify-between mb-4 pt-3 border-t border-neutral-100">
           <div>
             {/* Price - Using Radio Canada for distinctive pricing */}
-            <span className="font-radio text-lg font-bold text-amber-700">
+            <span className="font-radio text-lg font-bold text-brand-700">
               ${product.price.toFixed(2)}
             </span>
             <span className="font-mulish text-xs text-neutral-400 ml-1">
@@ -64,7 +64,7 @@ export default function ProductCard({ product }: { product: any }) {
             </span>
           </div>
           {/* Min badge - Using Mulish */}
-          <span className="font-mulish text-xs bg-amber-50 text-amber-700 font-medium px-2.5 py-1 rounded-[4px]">
+          <span className="font-mulish text-xs bg-brand-50 text-brand-700 font-medium px-2.5 py-1 rounded-[4px]">
             Min: {minQty} {unitType}
           </span>
         </div>
@@ -74,7 +74,7 @@ export default function ProductCard({ product }: { product: any }) {
           <div className="flex items-center justify-between bg-neutral-50 p-1.5 rounded-[4px] border border-neutral-200">
             <button
               onClick={handleDecrement}
-              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition flex items-center justify-center text-sm"
+              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition flex items-center justify-center text-sm"
             >
               -
             </button>
@@ -84,7 +84,7 @@ export default function ProductCard({ product }: { product: any }) {
             </span>
             <button
               onClick={handleIncrement}
-              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition flex items-center justify-center text-sm"
+              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition flex items-center justify-center text-sm"
             >
               +
             </button>
@@ -93,9 +93,9 @@ export default function ProductCard({ product }: { product: any }) {
           {/* Add to Cart button - Using DM Sans (default) */}
           <button
             onClick={handleAddToCart}
-            className="font-sans w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
+            className="font-sans w-full py-2.5 tracking-[0.06em] bg-brand-600 hover:bg-brand-700 text-white uppercase font-semibold text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
           >
-            Add to Cart 🛒
+            Add to Cart
           </button>
         </div>
       </div>

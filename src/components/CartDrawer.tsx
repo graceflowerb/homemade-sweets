@@ -81,7 +81,7 @@ export default function CartDrawer() {
                 </p>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="font-sans mt-4 text-xs font-bold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition"
+                  className="font-sans mt-4 text-xs font-bold uppercase tracking-widest text-brand-600 hover:text-brand-700 transition"
                 >
                   Continue Shopping &rarr;
                 </button>
@@ -103,7 +103,7 @@ export default function CartDrawer() {
                       {item.title}
                     </h4>
                     {/* Radio Canada for distinctive pricing */}
-                    <p className="font-radio text-xs text-amber-700 font-bold mt-0.5">
+                    <p className="font-radio text-xs text-brand-700 font-bold mt-0.5">
                       ${item.price.toFixed(2)} / {item.unit_type}
                     </p>
 
@@ -117,7 +117,7 @@ export default function CartDrawer() {
                                 (item.unit_type === "grams" ? 50 : 1),
                             )
                           }
-                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-md text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition text-sm cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-md text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition text-sm cursor-pointer"
                         >
                           -
                         </button>
@@ -132,7 +132,7 @@ export default function CartDrawer() {
                                 (item.unit_type === "grams" ? 50 : 1),
                             )
                           }
-                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-md text-neutral-700 font-bold hover:bg-amber-50 hover:border-amber-200 transition text-sm cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-md text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition text-sm cursor-pointer"
                         >
                           +
                         </button>
@@ -162,21 +162,21 @@ export default function CartDrawer() {
                   placeholder="Your Name"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-lg outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-lg outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Delivery Address / Area"
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-lg outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-lg outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Special instructions (optional)"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-lg outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-lg outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
               </div>
 
@@ -184,7 +184,7 @@ export default function CartDrawer() {
                 <span className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-500">
                   Total Amount
                 </span>
-                <span className="font-radio text-2xl font-bold text-amber-700">
+                <span className="font-radio text-2xl font-bold text-brand-700">
                   ${totalPrice.toFixed(2)}
                 </span>
               </div>

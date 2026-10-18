@@ -30,8 +30,8 @@ async function HeroSection() {
 
   return (
     <section
-      className={`relative py-24 px-6 md:px-12 text-center max-w-5xl mx-auto flex flex-col items-center justify-center rounded-[4px] my-8 overflow-hidden shadow-sm ${
-        heroImageUrl ? "text-white" : "text-neutral-900 bg-amber-50/40"
+      className={`relative py-24 px-6 md:px-12 text-center max-w-5xl mx-auto flex flex-col items-center justify-center rounded-3xl my-8 overflow-hidden shadow-sm ${
+        heroImageUrl ? "text-white" : "text-neutral-900 bg-brand-50/40" // 👈 Changed to brand-50
       }`}
       style={
         heroImageUrl
@@ -43,25 +43,25 @@ async function HeroSection() {
           : {}
       }
     >
-      {/* BADGE: Clean DM Sans for uppercase tracking */}
+      {/* BADGE */}
       <span
-        className={`font-sans px-4 py-1.5 rounded-[6px] text-xs font-semibold tracking-[0.15em] uppercase mb-6 ${
+        className={`font-sans px-4 py-1.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase mb-6 ${
           heroImageUrl
-            ? "bg-amber-500 text-white"
-            : "bg-amber-100 text-amber-800"
+            ? "bg-brand-500 text-white" // 👈 Changed to brand-500
+            : "bg-brand-100 text-brand-800" // 👈 Changed to brand-100 & brand-800
         }`}
       >
         {heroBadge}
       </span>
 
-      {/* TITLE: Vollkorn (or Source Serif 4) for that elegant, artisan bakery feel */}
-      <h1 className="font-vollkorn text-4xl md:text-6xl tracking-[0.07em] mb-6 drop-shadow-sm leading-[1.1]">
+      {/* TITLE */}
+      <h1 className="font-vollkorn text-4xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-sm leading-[1.1]">
         {heroTitle.includes("Love") ? (
           <>
             {heroTitle.replace("Love", "")}
             <span
               className={`italic ${
-                heroImageUrl ? "text-amber-400" : "text-amber-600"
+                heroImageUrl ? "text-brand-400" : "text-brand-600" // 👈 Changed to brand-400 & brand-600
               }`}
             >
               Love
@@ -72,7 +72,7 @@ async function HeroSection() {
         )}
       </h1>
 
-      {/* DESCRIPTION: Mulish for highly readable, friendly body text */}
+      {/* DESCRIPTION */}
       <p
         className={`font-mulish text-lg md:text-xl mb-8 max-w-2xl leading-relaxed ${
           heroImageUrl ? "text-neutral-100" : "text-neutral-600"
@@ -124,7 +124,7 @@ async function PromotionSection() {
         {promotions.map((promo) => (
           <div
             key={promo.id}
-            className="relative overflow-hidden rounded-3xl bg-amber-900 text-white p-8 md:p-10 flex flex-col justify-between shadow-lg"
+            className="relative overflow-hidden rounded-3xl bg-brand-900 text-white p-8 md:p-10 flex flex-col justify-between shadow-lg"
             style={
               promo.image_url
                 ? {
@@ -138,7 +138,7 @@ async function PromotionSection() {
             <div>
               {/* PROMO BADGE: DM Sans */}
               {promo.badge && (
-                <span className="font-sans inline-block px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold tracking-[0.1em] uppercase mb-4">
+                <span className="font-sans inline-block px-3 py-1 rounded-full brand-500 text-white text-xs font-bold tracking-[0.1em] uppercase mb-4">
                   {promo.badge}
                 </span>
               )}
@@ -149,7 +149,7 @@ async function PromotionSection() {
               </h3>
 
               {/* PROMO SUBTITLE: Mulish for readability */}
-              <p className="font-mulish text-amber-100 text-sm md:text-base max-w-md mb-8 leading-relaxed">
+              <p className="font-mulish text-brand-100 text-sm md:text-base max-w-md mb-8 leading-relaxed">
                 {promo.subtitle}
               </p>
             </div>
@@ -157,7 +157,7 @@ async function PromotionSection() {
             {/* PROMO BUTTON: DM Sans for clear, trustworthy action */}
             <a
               href={promo.button_link || "#gallery"}
-              className="font-sans inline-block self-start px-6 py-3 bg-white text-amber-900 font-semibold rounded-xl hover:bg-amber-50 transition shadow-md text-sm"
+              className="font-sans inline-block self-start px-6 py-3 bg-white text-brand-900 font-semibold rounded-xl hover:bg-brand-50 transition shadow-md text-sm"
             >
               {promo.button_text || "Order Now"}
             </a>

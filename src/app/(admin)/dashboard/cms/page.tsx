@@ -200,7 +200,7 @@ export default function AdminCmsPage() {
               type="text"
               value={heroBadge}
               onChange={(e) => setHeroBadge(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
               placeholder="e.g. Freshly Baked Daily 🧁"
             />
           </div>
@@ -213,7 +213,7 @@ export default function AdminCmsPage() {
               type="text"
               value={heroTitle}
               onChange={(e) => setHeroTitle(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
               placeholder="Homemade Sweets Crafted With Love"
             />
           </div>
@@ -226,7 +226,7 @@ export default function AdminCmsPage() {
               rows={3}
               value={heroDescription}
               onChange={(e) => setHeroDescription(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
             />
           </div>
 
@@ -247,14 +247,14 @@ export default function AdminCmsPage() {
               type="file"
               accept="image/*"
               onChange={(e) => setHeroFile(e.target.files?.[0] || null)}
-              className="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
+              className="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
             />
           </div>
 
           <button
             type="submit"
             disabled={savingHero}
-            className="py-2.5 px-6 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition shadow-sm disabled:opacity-50"
+            className="py-2.5 px-6 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition shadow-sm disabled:opacity-50"
           >
             {savingHero ? "Saving Hero..." : "Save Hero Section"}
           </button>
@@ -287,7 +287,7 @@ export default function AdminCmsPage() {
                 value={promoTitle}
                 onChange={(e) => setPromoTitle(e.target.value)}
                 placeholder="e.g. Weekend Special Box!"
-                className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
             <div>
@@ -299,7 +299,7 @@ export default function AdminCmsPage() {
                 value={promoBadge}
                 onChange={(e) => setPromoBadge(e.target.value)}
                 placeholder="Special Offer 🔥"
-                className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
           </div>
@@ -313,7 +313,7 @@ export default function AdminCmsPage() {
               value={promoSubtitle}
               onChange={(e) => setPromoSubtitle(e.target.value)}
               placeholder="Get 20% off all mixed macaron orders this weekend."
-              className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
 
@@ -326,7 +326,7 @@ export default function AdminCmsPage() {
                 type="text"
                 value={promoButtonText}
                 onChange={(e) => setPromoButtonText(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 border rounded-lg bg-white text-sm outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
             <div>
@@ -337,7 +337,7 @@ export default function AdminCmsPage() {
                 type="file"
                 accept="image/*"
                 onChange={(e) => setPromoFile(e.target.files?.[0] || null)}
-                className="w-full text-xs text-neutral-500 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-amber-100 file:text-amber-800"
+                className="w-full text-xs text-neutral-500 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-brand-100 file:text-brand-800"
               />
             </div>
           </div>
@@ -365,7 +365,7 @@ export default function AdminCmsPage() {
                 className="flex items-center justify-between p-4 border rounded-xl bg-white shadow-xs"
               >
                 <div>
-                  <span className="text-xs bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded mr-2">
+                  <span className="text-xs bg-brand-100 text-brand-800 font-semibold px-2 py-0.5 rounded mr-2">
                     {promo.badge}
                   </span>
                   <h4 className="font-bold text-neutral-900 inline">
