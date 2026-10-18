@@ -21,7 +21,6 @@ export default function Navbar() {
   useEffect(() => {
     async function checkAdminRole() {
       if (isSignedIn && user?.id) {
-        // Query Supabase for user's role
         const { data, error } = await supabase
           .from("profiles")
           .select("role")
@@ -32,7 +31,6 @@ export default function Navbar() {
           setIsAdmin(true);
         } else {
           setIsAdmin(false);
-          // Auto-sync non-admin user into Supabase as customer if missing
           const userEmail = user.primaryEmailAddress?.emailAddress;
           if (userEmail && !data) {
             await supabase
@@ -53,45 +51,46 @@ export default function Navbar() {
     }
   }, [isSignedIn, isLoaded, user]);
 
+  // Reusable class for uppercase nav links
+  const navLinkClass =
+    "font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-amber-600 transition";
+  const navLinkActiveClass =
+    "font-sans text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100/70 hover:bg-amber-100 px-3.5 py-2 rounded-lg border border-amber-200/60 transition";
+
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-amber-100/60">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-amber-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand / Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-2xl">🧁</span>
-            <span className="font-extrabold text-xl tracking-tight text-neutral-900 group-hover:text-amber-600 transition">
-              Seet<span className="text-amber-600">Bites</span>
+            {/* Changed to uppercase with wide tracking for a premium bakery feel */}
+            <span className="font-vollkorn font-bold text-xl uppercase tracking-widest text-neutral-900 group-hover:text-amber-600 transition">
+              SWEET<span className="text-amber-600">BITES</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              href="/"
-              className="text-sm font-medium text-neutral-700 hover:text-amber-600 transition"
-            >
+          <nav className="hidden md:flex items-center gap-8">
+            <Link href="/" className={navLinkClass}>
               Home
             </Link>
-            <Link
-              href="/#gallery"
-              className="text-sm font-medium text-neutral-700 hover:text-amber-600 transition"
-            >
+            <Link href="/#gallery" className={navLinkClass}>
               Menu
             </Link>
 
-            {/* ONLY show Admin links if Supabase role is 'admin' */}
+            {/* Admin Links */}
             {isAdmin && (
               <>
                 <Link
                   href="/dashboard/products/new"
-                  className="text-sm font-medium text-amber-800 bg-amber-100/70 hover:bg-amber-100 px-3.5 py-1.5 rounded-lg border border-amber-200/60 transition"
+                  className={navLinkActiveClass}
                 >
                   + Add Product
                 </Link>
                 <Link
                   href="/dashboard/cms"
-                  className="text-sm font-medium text-neutral-700 hover:text-amber-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-1.5 rounded-lg transition"
+                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-amber-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-2 rounded-lg transition"
                 >
                   ⚙️ Store CMS
                 </Link>
@@ -100,11 +99,11 @@ export default function Navbar() {
           </nav>
 
           {/* Action / Auth & Cart Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-4">
             {isAdmin && (
               <Link
                 href="/dashboard/cms"
-                className="px-4 py-2 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-xl shadow-sm transition"
+                className="font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-amber-600 hover:bg-amber-700 rounded-xl shadow-sm transition"
               >
                 Admin CMS
               </Link>
@@ -116,7 +115,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   href="/sign-in"
-                  className="text-sm font-medium text-neutral-600 hover:text-amber-600 px-3 py-2 transition"
+                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-amber-600 px-3 py-2 transition"
                 >
                   Sign In
                 </Link>
@@ -130,7 +129,7 @@ export default function Navbar() {
             >
               <span className="text-lg">🛒</span>
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
+                <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] font-bold uppercase tracking-wider w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
                   {itemCount}
                 </span>
               )}
@@ -146,7 +145,7 @@ export default function Navbar() {
             >
               <span className="text-base">🛒</span>
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
+                <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] font-bold uppercase tracking-wider w-4 h-4 rounded-full flex items-center justify-center border border-white">
                   {itemCount}
                 </span>
               )}
@@ -194,18 +193,18 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-neutral-100 bg-white px-4 pt-3 pb-5 space-y-3 shadow-lg">
+        <div className="md:hidden border-t border-neutral-100 bg-white px-4 pt-4 pb-6 space-y-4 shadow-lg">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-medium text-neutral-700 hover:text-amber-600 py-1"
+            className="block font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-amber-600 py-1"
           >
             Home
           </Link>
           <Link
             href="/#gallery"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-medium text-neutral-700 hover:text-amber-600 py-1"
+            className="block font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-amber-600 py-1"
           >
             Menu
           </Link>
@@ -215,32 +214,34 @@ export default function Navbar() {
               <Link
                 href="/dashboard/products/new"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-base font-medium text-amber-700 font-semibold py-1"
+                className="block font-sans text-sm font-bold uppercase tracking-widest text-amber-700 py-1"
               >
-                + Add Product (Admin)
+                + Add Product
               </Link>
               <Link
                 href="/dashboard/cms"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-base font-medium text-amber-700 font-semibold py-1"
+                className="block font-sans text-sm font-bold uppercase tracking-widest text-amber-700 py-1"
               >
-                ⚙️ Store CMS (Hero & Promos)
+                ⚙️ Store CMS
               </Link>
             </>
           )}
 
-          <div className="pt-2 border-t border-neutral-100 flex items-center justify-between">
+          <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
             {isLoaded &&
               (isSignedIn ? (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <UserButton />
-                  <span className="text-sm text-neutral-600">Account</span>
+                  <span className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-600">
+                    Account
+                  </span>
                 </div>
               ) : (
                 <Link
                   href="/sign-in"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-semibold text-amber-600 hover:text-amber-700"
+                  className="font-sans text-sm font-bold uppercase tracking-widest text-amber-600 hover:text-amber-700"
                 >
                   Sign In &rarr;
                 </Link>
