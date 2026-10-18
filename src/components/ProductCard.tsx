@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: any }) {
   };
 
   return (
-    <div className="min-w-[280px] md:min-w-[320px] flex-shrink-0 bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden snap-start flex flex-col justify-between group hover:shadow-md transition">
+    <div className="flex-shrink-0 bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden snap-start flex flex-col justify-between group hover:shadow-md transition w-full">
       <div className="relative h-64 w-full bg-neutral-100 overflow-hidden">
         {product.image_url && product.image_url.startsWith("http") ? (
           <img
