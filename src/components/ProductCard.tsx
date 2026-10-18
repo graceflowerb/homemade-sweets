@@ -42,22 +42,29 @@ export default function ProductCard({ product }: { product: any }) {
       </div>
 
       <div className="p-5 flex flex-col flex-grow">
-        <h3 className="font-semibold font-mulish font-radio fon text-lg text-neutral-900 mb-1">
+        {/* Title - Using Source Serif 4 for elegance */}
+        <h3 className="font-serif font-semibold text-lg text-neutral-900 mb-1 leading-tight">
           {product.title}
         </h3>
-        <p className="text-neutral-500 text-sm line-clamp-2 mb-4 flex-grow">
+
+        {/* Description - Using Mulish for clean readability */}
+        <p className="font-mulish text-neutral-500 text-sm line-clamp-2 mb-4 flex-grow">
           {product.description}
         </p>
 
         {/* Pricing & Unit Info */}
         <div className="flex items-center justify-between mb-4 pt-3 border-t border-neutral-100">
           <div>
-            <span className="text-lg font-bold text-amber-700">
+            {/* Price - Using Radio Canada for distinctive pricing */}
+            <span className="font-radio text-lg font-bold text-amber-700">
               ${product.price.toFixed(2)}
             </span>
-            <span className="text-xs text-neutral-400 ml-1">/ {unitType}</span>
+            <span className="font-mulish text-xs text-neutral-400 ml-1">
+              / {unitType}
+            </span>
           </div>
-          <span className="text-xs bg-amber-50 text-amber-700 font-medium px-2.5 py-1 rounded-[4px]">
+          {/* Min badge - Using Mulish */}
+          <span className="font-mulish text-xs bg-amber-50 text-amber-700 font-medium px-2.5 py-1 rounded-[4px]">
             Min: {minQty} {unitType}
           </span>
         </div>
@@ -71,7 +78,8 @@ export default function ProductCard({ product }: { product: any }) {
             >
               -
             </button>
-            <span className="text-sm font-semibold text-neutral-800">
+            {/* Quantity display - Using DM Sans (default) */}
+            <span className="font-sans text-sm font-semibold text-neutral-800">
               {qty} {unitType}
             </span>
             <button
@@ -82,11 +90,12 @@ export default function ProductCard({ product }: { product: any }) {
             </button>
           </div>
 
+          {/* Add to Cart button - Using DM Sans (default) */}
           <button
             onClick={handleAddToCart}
-            className="font-radio font-vollkorn font-arabic font-serif font-sans font-mulish w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
+            className="font-sans w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
           >
-            Add to Cart
+            Add to Cart 🛒
           </button>
         </div>
       </div>

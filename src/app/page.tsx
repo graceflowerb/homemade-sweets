@@ -43,8 +43,9 @@ async function HeroSection() {
           : {}
       }
     >
+      {/* BADGE: Clean DM Sans for uppercase tracking */}
       <span
-        className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase mb-4 ${
+        className={`font-sans px-4 py-1.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase mb-6 ${
           heroImageUrl
             ? "bg-amber-500 text-white"
             : "bg-amber-100 text-amber-800"
@@ -52,12 +53,16 @@ async function HeroSection() {
       >
         {heroBadge}
       </span>
-      <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-sm">
+
+      {/* TITLE: Vollkorn (or Source Serif 4) for that elegant, artisan bakery feel */}
+      <h1 className="font-vollkorn text-4xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-sm leading-[1.1]">
         {heroTitle.includes("Love") ? (
           <>
             {heroTitle.replace("Love", "")}
             <span
-              className={heroImageUrl ? "text-amber-400" : "text-amber-600"}
+              className={`italic ${
+                heroImageUrl ? "text-amber-400" : "text-amber-600"
+              }`}
             >
               Love
             </span>
@@ -66,8 +71,10 @@ async function HeroSection() {
           heroTitle
         )}
       </h1>
+
+      {/* DESCRIPTION: Mulish for highly readable, friendly body text */}
       <p
-        className={`text-lg md:text-xl mb-8 max-w-2xl ${
+        className={`font-mulish text-lg md:text-xl mb-8 max-w-2xl leading-relaxed ${
           heroImageUrl ? "text-neutral-100" : "text-neutral-600"
         }`}
       >
@@ -93,7 +100,8 @@ async function ProductList() {
         ))
       ) : (
         <div className="col-span-full py-12 text-center text-neutral-500 bg-white rounded-2xl border border-neutral-100">
-          No treats uploaded yet.
+          {/* Empty state uses Mulish for clean readability */}
+          <p className="font-mulish text-lg">No treats uploaded yet.</p>
         </div>
       )}
     </div>
@@ -128,21 +136,28 @@ async function PromotionSection() {
             }
           >
             <div>
+              {/* PROMO BADGE: DM Sans */}
               {promo.badge && (
-                <span className="inline-block px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold uppercase tracking-wider mb-4">
+                <span className="font-sans inline-block px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold tracking-[0.1em] uppercase mb-4">
                   {promo.badge}
                 </span>
               )}
-              <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
+
+              {/* PROMO TITLE: Vollkorn for premium, standout feel */}
+              <h3 className="font-vollkorn text-2xl md:text-3xl font-bold mb-3 leading-tight">
                 {promo.title}
               </h3>
-              <p className="text-amber-100 text-sm md:text-base max-w-md mb-6">
+
+              {/* PROMO SUBTITLE: Mulish for readability */}
+              <p className="font-mulish text-amber-100 text-sm md:text-base max-w-md mb-8 leading-relaxed">
                 {promo.subtitle}
               </p>
             </div>
+
+            {/* PROMO BUTTON: DM Sans for clear, trustworthy action */}
             <a
               href={promo.button_link || "#gallery"}
-              className="inline-block self-start px-6 py-3 bg-white text-amber-900 font-semibold rounded-xl hover:bg-amber-50 transition shadow-md text-sm"
+              className="font-sans inline-block self-start px-6 py-3 bg-white text-amber-900 font-semibold rounded-xl hover:bg-amber-50 transition shadow-md text-sm"
             >
               {promo.button_text || "Order Now"}
             </a>
@@ -158,7 +173,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Suspense
         fallback={
-          <div className="py-20 text-center text-neutral-400">
+          <div className="py-20 text-center text-neutral-400 font-mulish">
             Loading hero...
           </div>
         }
@@ -167,12 +182,13 @@ export default function Home() {
       </Suspense>
 
       <section id="gallery" className="py-8 px-6 md:px-12 max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8">
+        {/* SECTION HEADING: Source Serif 4 for elegant section breaks */}
+        <h2 className="font-serif text-3xl md:text-4xl font-bold text-neutral-900 mb-8 tracking-tight">
           Featured Menu
         </h2>
         <Suspense
           fallback={
-            <div className="py-12 text-center text-neutral-400">
+            <div className="py-12 text-center text-neutral-400 font-mulish">
               Loading fresh menu...
             </div>
           }
