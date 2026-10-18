@@ -1,15 +1,57 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { useUser, UserButton } from "@clerk/nextjs";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+);
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { cart, setIsCartOpen } = useCart();
-  const { isSignedIn, isLoaded } = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
   const itemCount = cart.reduce((sum, item) => sum + 1, 0);
+
+  useEffect(() => {
+    async function checkAdminRole() {
+      if (isSignedIn && user?.id) {
+        // Query Supabase for user's role
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+
+        if (data && data.role === "admin") {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+          // Auto-sync non-admin user into Supabase as customer if missing
+          const userEmail = user.primaryEmailAddress?.emailAddress;
+          if (userEmail && !data) {
+            await supabase
+              .from("profiles")
+              .upsert(
+                { id: user.id, email: userEmail, role: "customer" },
+                { onConflict: "id" },
+              );
+          }
+        }
+      } else {
+        setIsAdmin(false);
+      }
+    }
+
+    if (isLoaded) {
+      checkAdminRole();
+    }
+  }, [isSignedIn, isLoaded, user]);
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-amber-100/60">
@@ -19,7 +61,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-2xl">🧁</span>
             <span className="font-extrabold text-xl tracking-tight text-neutral-900 group-hover:text-amber-600 transition">
-              SB<span className="text-amber-600">Bites</span>
+              Seet<span className="text-amber-600">Bites</span>
             </span>
           </Link>
 
@@ -38,8 +80,8 @@ export default function Navbar() {
               Menu
             </Link>
 
-            {/* Conditionally show Admin links only when signed in */}
-            {isSignedIn && (
+            {/* ONLY show Admin links if Supabase role is 'admin' */}
+            {isAdmin && (
               <>
                 <Link
                   href="/dashboard/products/new"
@@ -59,7 +101,7 @@ export default function Navbar() {
 
           {/* Action / Auth & Cart Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            {isSignedIn && (
+            {isAdmin && (
               <Link
                 href="/dashboard/cms"
                 className="px-4 py-2 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-xl shadow-sm transition"
@@ -68,7 +110,6 @@ export default function Navbar() {
               </Link>
             )}
 
-            {/* Authentication state via useUser hook */}
             {isLoaded &&
               (isSignedIn ? (
                 <UserButton />
@@ -96,7 +137,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Menu & Cart Buttons */}
+          {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setIsCartOpen(true)}
@@ -169,7 +210,7 @@ export default function Navbar() {
             Menu
           </Link>
 
-          {isSignedIn && (
+          {isAdmin && (
             <>
               <Link
                 href="/dashboard/products/new"
