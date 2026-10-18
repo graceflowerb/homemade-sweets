@@ -30,7 +30,7 @@ async function HeroSection() {
 
   return (
     <section
-      className={`relative py-24 px-6 md:px-12 text-center max-w-5xl mx-auto flex flex-col items-center justify-center rounded-3xl my-8 overflow-hidden shadow-sm ${
+      className={`relative py-24 px-6 md:px-12 text-center max-w-5xl mx-auto flex flex-col items-center justify-center rounded-[4px] my-8 overflow-hidden shadow-sm ${
         heroImageUrl ? "text-white" : "text-neutral-900 bg-amber-50/40"
       }`}
       style={
@@ -45,7 +45,7 @@ async function HeroSection() {
     >
       {/* BADGE: Clean DM Sans for uppercase tracking */}
       <span
-        className={`font-sans px-4 py-1.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase mb-6 ${
+        className={`font-sans px-4 py-1.5 rounded-[6px] text-xs font-semibold tracking-[0.15em] uppercase mb-6 ${
           heroImageUrl
             ? "bg-amber-500 text-white"
             : "bg-amber-100 text-amber-800"
@@ -55,7 +55,7 @@ async function HeroSection() {
       </span>
 
       {/* TITLE: Vollkorn (or Source Serif 4) for that elegant, artisan bakery feel */}
-      <h1 className="font-vollkorn text-4xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-sm leading-[1.1]">
+      <h1 className="font-vollkorn text-4xl md:text-6xl tracking-[0.07em] mb-6 drop-shadow-sm leading-[1.1]">
         {heroTitle.includes("Love") ? (
           <>
             {heroTitle.replace("Love", "")}
@@ -184,7 +184,7 @@ export default function Home() {
       <section id="gallery" className="py-8 px-6 md:px-12 max-w-7xl mx-auto">
         {/* SECTION HEADING: Source Serif 4 for elegant section breaks */}
         <h2 className="font-serif text-3xl md:text-4xl font-bold text-neutral-900 mb-8 tracking-tight">
-          Featured Menu
+          Menu
         </h2>
         <Suspense
           fallback={
