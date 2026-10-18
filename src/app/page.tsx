@@ -55,7 +55,7 @@ async function HeroSection() {
       </span>
 
       {/* TITLE */}
-      <h1 className="font-vollkorn text-4xl md:text-6xl  tracking-[0.07em] mb-6 drop-shadow-sm leading-[1.1]">
+      <h1 className="font-vollkorn text-4xl md:text-6xl tracking-[0.07em] mb-6 drop-shadow-sm leading-[1.1]">
         {heroTitle.includes("Love") ? (
           <>
             {heroTitle.replace("Love", "")}
@@ -124,7 +124,7 @@ async function PromotionSection() {
         {promotions.map((promo) => (
           <div
             key={promo.id}
-            className="relative overflow-hidden rounded-3xl bg-brand-900 text-white p-8 md:p-10 flex flex-col justify-between shadow-lg"
+            className="relative overflow-hidden rounded-[0.04] bg-brand-900 text-white p-8 md:p-10 flex flex-col justify-between shadow-lg"
             style={
               promo.image_url
                 ? {
@@ -138,7 +138,7 @@ async function PromotionSection() {
             <div>
               {/* PROMO BADGE: DM Sans */}
               {promo.badge && (
-                <span className="font-sans inline-block px-3 py-1 rounded-full brand-500 text-white text-xs font-bold tracking-[0.1em] uppercase mb-4">
+                <span className="font-sans inline-block px-3 py-1 rounded-full bg-brand-500 text-white text-xs font-bold tracking-[0.1em] uppercase mb-4">
                   {promo.badge}
                 </span>
               )}
