@@ -216,26 +216,27 @@ export default function CartDrawer() {
           {cart.length > 0 && (
             <div className="border-t border-neutral-100 p-6 bg-neutral-50 space-y-4">
               <div className="space-y-3">
+                {/* 👇 ADDED text-neutral-900 to make typed text dark and readable */}
                 <input
                   type="text"
                   placeholder="Your Name"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Delivery Address / Area"
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Special instructions (optional)"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
               </div>
 
