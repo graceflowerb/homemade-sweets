@@ -138,7 +138,7 @@ async function PromotionSection() {
             <div>
               {/* PROMO BADGE: DM Sans */}
               {promo.badge && (
-                <span className="font-sans inline-block px-3 py-1 rounded-full bg-brand-500 text-white text-xs font-bold tracking-[0.1em] uppercase mb-4">
+                <span className="font-sans inline-block px-3 py-1 rounded-[0.04] bg-brand-500 text-white text-xs font-bold tracking-[0.1em] uppercase mb-4">
                   {promo.badge}
                 </span>
               )}
