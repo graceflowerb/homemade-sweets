@@ -1,10 +1,12 @@
-export const dynamic = "force-dynamic";
-
+import { connection } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function UserOrdersPage() {
+  // Opt out of static prerendering safely under Next.js cacheComponents config
+  await connection();
+
   let userId: string | null = null;
 
   try {
