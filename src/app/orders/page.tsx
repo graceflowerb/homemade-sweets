@@ -97,7 +97,7 @@ export default function UserOrdersPage() {
             >
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs px-2.5 py-1 rounded-[0.04rem] font-semibold bg-amber-100 text-amber-800">
+                  <span className="text-xs px-2.5 py-1 rounded-[0.04rem] font-semibold bg-brand- 100 text-brand- 800">
                     Status: {order.status}
                   </span>
                   <span className="text-xs text-neutral-400">

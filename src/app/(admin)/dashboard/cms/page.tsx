@@ -272,7 +272,7 @@ export default function AdminCmsPage() {
                       <span className="text-xs text-neutral-500">
                         📞 {order.customer_phone}
                       </span>
-                      <span className="text-xs px-2.5 py-0.5 rounded-[0.04rem] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">
+                      <span className="text-xs px-2.5 py-0.5 rounded-[0.04rem] font-bold uppercase tracking-wider bg-brand- 100 text-brand- 800">
                         {order.status}
                       </span>
                     </div>
