@@ -47,7 +47,7 @@ export default function CartDrawer() {
       customer_name: effectiveName,
       customer_phone: effectiveContact,
       customer_whatsapp: effectiveContact,
-      delivery_region: deliveryAddress.trim() || "Local Area", // Correct spelling matching DB
+      delivery_region: deliveryAddress.trim() || "Local Area",
       items: cart,
       total_price: Number(totalPrice.toFixed(2)),
       status: "Pending",
