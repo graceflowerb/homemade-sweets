@@ -55,7 +55,7 @@ export default function Navbar() {
   const navLinkClass =
     "font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 transition";
   const navLinkActiveClass =
-    "font-sans text-xs font-bold uppercase tracking-widest text-brand-800 bg-brand-100/70 hover:bg-brand-100 px-3.5 py-2 rounded-lg border border-brand-200/60 transition";
+    "font-sans text-xs font-bold uppercase tracking-widest text-brand-800 bg-brand-100/70 hover:bg-brand-100 px-3.5 py-2 rounded-[0.04rem] border border-brand-200/60 transition";
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-100/60">
@@ -64,7 +64,6 @@ export default function Navbar() {
           {/* Brand / Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-2xl">🧁</span>
-            {/* Changed to uppercase with wide tracking for a premium bakery feel */}
             <span className="font-vollkorn font-bold text-xl uppercase tracking-widest text-neutral-900 group-hover:text-brand-600 transition">
               SWEET<span className="text-brand-600">BITES</span>
             </span>
@@ -79,6 +78,13 @@ export default function Navbar() {
               Menu
             </Link>
 
+            {/* Customer Orders Link (Visible to logged-in non-admins) */}
+            {isSignedIn && !isAdmin && (
+              <Link href="/orders" className={navLinkClass}>
+                📦 My Orders
+              </Link>
+            )}
+
             {/* Admin Links */}
             {isAdmin && (
               <>
@@ -90,9 +96,9 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/dashboard/cms"
-                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-2 rounded-[0.04] transition"
+                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-2 rounded-[0.04rem] transition"
                 >
-                  ⚙️ Store CMS
+                  ⚙️ Store CMS & Orders
                 </Link>
               </>
             )}
@@ -103,9 +109,9 @@ export default function Navbar() {
             {isAdmin && (
               <Link
                 href="/dashboard/cms"
-                className="font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-brand-600 hover:bg-brand-700 rounded-[0.04] shadow-sm transition"
+                className="font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-brand-600 hover:bg-brand-700 rounded-[0.04rem] shadow-sm transition"
               >
-                Admin CMS
+                Admin Panel
               </Link>
             )}
 
@@ -124,7 +130,7 @@ export default function Navbar() {
             {/* Shopping Cart Button */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2.5 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04] transition flex items-center justify-center cursor-pointer"
+              className="relative p-2.5 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04rem] transition flex items-center justify-center cursor-pointer"
               aria-label="Open Cart"
             >
               <span className="text-lg">🛒</span>
@@ -140,7 +146,7 @@ export default function Navbar() {
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04] transition flex items-center justify-center"
+              className="relative p-2 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04rem] transition flex items-center justify-center"
               aria-label="Open Cart"
             >
               <span className="text-base">🛒</span>
@@ -154,7 +160,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               type="button"
-              className="p-2 rounded-[0.04] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:outline-none"
+              className="p-2 rounded-[0.04rem] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:outline-none"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -209,6 +215,16 @@ export default function Navbar() {
             Menu
           </Link>
 
+          {isSignedIn && !isAdmin && (
+            <Link
+              href="/orders"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 py-1"
+            >
+              📦 My Orders
+            </Link>
+          )}
+
           {isAdmin && (
             <>
               <Link
@@ -223,7 +239,7 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="block font-sans text-sm font-bold uppercase tracking-widest text-brand-700 py-1"
               >
-                ⚙️ Store CMS
+                ⚙️ Store CMS & Orders
               </Link>
             </>
           )}
