@@ -41,12 +41,14 @@ export default function CartDrawer() {
       ? `Address: ${deliveryAddress}`
       : "Provided via WhatsApp";
 
-    // Matching exact database schema constraints:
+    // Complete payload matching your exact database schema fields
     const orderPayload = {
       user_id: user?.id || null,
       customer_name: effectiveName,
       customer_phone: effectiveContact,
-      customer_whatsapp: effectiveContact, // Added to satisfy customer_whatsapp NOT NULL constraint
+      customer_whatsapp: effectiveContact,
+      delivery_region: deliveryAddress.trim() || "Local Area",
+      delivery_reagon: deliveryAddress.trim() || "Local Area", // Fallback for schema typo match
       items: cart,
       total_price: Number(totalPrice.toFixed(2)),
       status: "Pending",
