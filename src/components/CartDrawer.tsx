@@ -152,12 +152,12 @@ export default function CartDrawer() {
               cart.map((item) => (
                 <div
                   key={item.id}
-                  className="flex gap-4 items-start bg-neutral-50 p-3 rounded-[0.04rem] border border-neutral-100"
+                  className="flex gap-4 items-start bg-neutral-50 p-3 rounded-[4px] border border-neutral-100"
                 >
                   <img
                     src={item.image_url || "/placeholder.jpg"}
                     alt={item.title}
-                    className="w-16 h-16 object-cover rounded-[0.04rem] bg-neutral-200 flex-shrink-0"
+                    className="w-16 h-16 object-cover rounded-[4px] bg-neutral-200 flex-shrink-0"
                   />
                   <div className="flex-1 min-w-0">
                     <h4 className="font-mulish font-semibold text-sm text-neutral-900 truncate">
@@ -168,7 +168,7 @@ export default function CartDrawer() {
                     </p>
 
                     <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center gap-2 bg-white border border-neutral-200 rounded-[0.04rem] p-0.5">
+                      <div className="flex items-center gap-2 bg-white border border-neutral-200 rounded-[4px] p-0.5">
                         <button
                           onClick={() =>
                             updateQuantity(
@@ -177,7 +177,7 @@ export default function CartDrawer() {
                                 (item.unit_type === "grams" ? 50 : 1),
                             )
                           }
-                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[0.04rem] text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition text-sm cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-100 transition text-sm cursor-pointer"
                         >
                           -
                         </button>
@@ -192,7 +192,7 @@ export default function CartDrawer() {
                                 (item.unit_type === "grams" ? 50 : 1),
                             )
                           }
-                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[0.04rem] text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition text-sm cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-100 transition text-sm cursor-pointer"
                         >
                           +
                         </button>
@@ -221,21 +221,21 @@ export default function CartDrawer() {
                   placeholder="Your Name"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[0.04rem] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Delivery Address / Area"
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[0.04rem] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Special instructions (optional)"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[0.04rem] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
               </div>
 
@@ -251,12 +251,19 @@ export default function CartDrawer() {
               <button
                 onClick={handleWhatsAppCheckout}
                 disabled={isSubmitting}
-                className="font-sans w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-widest rounded-[0.04rem] transition shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98] disabled:opacity-50"
+                className="font-sans w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 disabled:cursor-not-allowed text-white text-xs font-bold uppercase tracking-widest rounded-[4px] transition shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
-                <span className="text-base">💬</span>
-                <span>
-                  {isSubmitting ? "Saving Order..." : "Order via WhatsApp"}
-                </span>
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin text-base">⏳</span>
+                    <span>Saving Order...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-base">💬</span>
+                    <span>Order via WhatsApp</span>
+                  </>
+                )}
               </button>
             </div>
           )}
