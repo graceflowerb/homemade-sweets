@@ -31,6 +31,8 @@ export default function CartDrawer() {
 
     setIsSubmitting(true);
 
+    const calculatedTotal = Number(totalPrice.toFixed(2));
+
     const effectiveName =
       customerName.trim() ||
       user?.fullName ||
@@ -41,7 +43,7 @@ export default function CartDrawer() {
       ? `Address: ${deliveryAddress}`
       : "Provided via WhatsApp";
 
-    // Complete payload matching your exact database schema fields
+    // Complete payload sending both total_amount and total_price
     const orderPayload = {
       user_id: user?.id || null,
       customer_name: effectiveName,
@@ -49,7 +51,8 @@ export default function CartDrawer() {
       customer_whatsapp: effectiveContact,
       delivery_region: deliveryAddress.trim() || "Local Area",
       items: cart,
-      total_price: Number(totalPrice.toFixed(2)),
+      total_amount: calculatedTotal,
+      total_price: calculatedTotal,
       status: "Pending",
     };
 
@@ -78,7 +81,7 @@ export default function CartDrawer() {
     }
 
     // 2. Format WhatsApp Message
-    const phoneNumber = "1234567890"; // Replace with your business WhatsApp number
+    const phoneNumber = "1234567890"; // Replace with your actual business WhatsApp number
 
     let message = `🛒 *New Order from Sweet Bites*%0A`;
     if (effectiveName) message += `👤 *Name:* ${effectiveName}%0A`;
@@ -96,7 +99,7 @@ export default function CartDrawer() {
     message += `💰 *Total: $${totalPrice.toFixed(2)}*%0A`;
     message += `Please confirm my order! ✨`;
 
-    // 3. Clear cart and redirect
+    // 3. Clear cart, reset state, and redirect to WhatsApp
     if (clearCart) clearCart();
     setIsCartOpen(false);
     setIsSubmitting(false);
