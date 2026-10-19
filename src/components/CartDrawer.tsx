@@ -37,18 +37,22 @@ export default function CartDrawer() {
       user?.primaryEmailAddress?.emailAddress ||
       "Guest Customer";
 
+    const effectiveContact = deliveryAddress.trim()
+      ? `Address: ${deliveryAddress}`
+      : "Provided via WhatsApp";
+
+    // Matching exact database schema constraints:
     const orderPayload = {
       user_id: user?.id || null,
       customer_name: effectiveName,
-      customer_phone: deliveryAddress
-        ? `Address: ${deliveryAddress}`
-        : "Provided via WhatsApp",
+      customer_phone: effectiveContact,
+      customer_whatsapp: effectiveContact, // Added to satisfy customer_whatsapp NOT NULL constraint
       items: cart,
       total_price: Number(totalPrice.toFixed(2)),
       status: "Pending",
     };
 
-    console.log("Submitting order to Supabase:", orderPayload);
+    console.log("Submitting order payload to Supabase:", orderPayload);
 
     // 1. Record the order in Supabase
     try {
@@ -61,7 +65,7 @@ export default function CartDrawer() {
         console.error("Supabase error details:", error);
         alert(`Could not save order: ${error.message}`);
         setIsSubmitting(false);
-        return; // Stop checkout if database insert fails
+        return; // Stop execution if DB insert fails
       }
 
       console.log("Order saved successfully to Supabase:", data);
@@ -73,7 +77,7 @@ export default function CartDrawer() {
     }
 
     // 2. Format WhatsApp Message
-    const phoneNumber = "1234567890"; // Replace with your actual business WhatsApp number
+    const phoneNumber = "1234567890"; // Replace with your business WhatsApp number
 
     let message = `🛒 *New Order from Sweet Bites*%0A`;
     if (effectiveName) message += `👤 *Name:* ${effectiveName}%0A`;
@@ -91,7 +95,7 @@ export default function CartDrawer() {
     message += `💰 *Total: $${totalPrice.toFixed(2)}*%0A`;
     message += `Please confirm my order! ✨`;
 
-    // 3. Clear cart, reset UI state, and redirect to WhatsApp
+    // 3. Clear cart and redirect
     if (clearCart) clearCart();
     setIsCartOpen(false);
     setIsSubmitting(false);
