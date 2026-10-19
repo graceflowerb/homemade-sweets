@@ -322,7 +322,7 @@ export default function AdminCmsPage() {
           {/* Hero Section Form */}
           <section className="bg-white p-8 rounded-[0.04rem] shadow-sm border border-neutral-100">
             <h2 className="text-xl font-bold text-neutral-900 mb-6">
-              Hero Section Settings
+              Hero Section Setting
             </h2>
             <form onSubmit={handleSaveHero} className="space-y-5">
               <div>
