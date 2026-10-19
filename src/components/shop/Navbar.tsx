@@ -90,7 +90,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/dashboard/cms"
-                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-2 rounded-lg transition"
+                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-2 rounded-[0.04] transition"
                 >
                   ⚙️ Store CMS
                 </Link>
@@ -103,7 +103,7 @@ export default function Navbar() {
             {isAdmin && (
               <Link
                 href="/dashboard/cms"
-                className="font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-brand-600 hover:bg-brand-700 rounded-xl shadow-sm transition"
+                className="font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-brand-600 hover:bg-brand-700 rounded-[0.04] shadow-sm transition"
               >
                 Admin CMS
               </Link>
@@ -124,7 +124,7 @@ export default function Navbar() {
             {/* Shopping Cart Button */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2.5 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-xl transition flex items-center justify-center cursor-pointer"
+              className="relative p-2.5 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04] transition flex items-center justify-center cursor-pointer"
               aria-label="Open Cart"
             >
               <span className="text-lg">🛒</span>
@@ -140,7 +140,7 @@ export default function Navbar() {
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-lg transition flex items-center justify-center"
+              className="relative p-2 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04] transition flex items-center justify-center"
               aria-label="Open Cart"
             >
               <span className="text-base">🛒</span>
@@ -154,7 +154,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               type="button"
-              className="p-2 rounded-lg text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:outline-none"
+              className="p-2 rounded-[0.04] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:outline-none"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (

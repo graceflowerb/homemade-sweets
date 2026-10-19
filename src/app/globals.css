@@ -3,13 +3,13 @@
 :root {
   /* Your complete brand palette (Example: Warm Orange) */
   --color-brand-50: #fff8f1;
-  --color-brand-100: #ffedd5;
-  --color-brand-400: #fb923c; /* 👈 Added for the Hero text */
-  --color-brand-500: #f97316;
-  --color-brand-600: #ea580c;
-  --color-brand-700: #c2410c;
-  --color-brand-800: #9a3412; /* 👈 Added for the badge text */
-  --color-brand-900: #7c2d12;
+  --color-brand-100: #89a7bcc5;
+  --color-brand-400: #a9c6d5ff; /* 👈 Added for the Hero text */
+  --color-brand-500: #2366abff;
+  --color-brand-600: #364b52c5;
+  --color-brand-700: #3276b5c5;
+  --color-brand-800: #4c5257c5; /* 👈 Added for the badge text */
+  --color-brand-900: #000029ff;
 
   --background: #ffffff;
   --foreground: #171717;
