@@ -494,31 +494,6 @@ export default function AdminCmsPage() {
                   No promotion banners created yet.
                 </p>
               ) : (
-                (promotions.log?.length === 0 &&
-                  promotions.map((promo) => (
-                    <div
-                      key={promo.id}
-                      className="flex items-center justify-between p-4 border rounded-[0.04rem] bg-white shadow-xs"
-                    >
-                      <div>
-                        <span className="text-xs bg-brand-100 text-brand-800 font-bold uppercase tracking-wider px-2 py-0.5 rounded-[0.04rem] mr-2">
-                          {promo.badge}
-                        </span>
-                        <h4 className="font-bold text-neutral-900 inline">
-                          {promo.title}
-                        </h4>
-                        <p className="text-sm text-neutral-500 mt-0.5 font-mulish">
-                          {promo.subtitle}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => handleDeletePromo(promo.id)}
-                        className="text-xs font-bold uppercase tracking-wider text-red-600 hover:text-red-800 px-3 py-1.5 rounded-[0.04rem] bg-red-50 hover:bg-red-100 transition"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ))) ||
                 promotions.map((promo) => (
                   <div
                     key={promo.id}
