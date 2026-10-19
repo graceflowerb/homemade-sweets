@@ -39,7 +39,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    /* Optional: Adjust brand colors for dark mode */
+
     --color-brand-500: #fb923c;
     --color-brand-600: #f97316;
   }
