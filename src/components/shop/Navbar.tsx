@@ -65,7 +65,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-2xl">🧁</span>
             <span className="font-vollkorn font-bold text-xl uppercase tracking-widest text-neutral-900 group-hover:text-brand-600 transition">
-              SWEET<span className="text-brand-600">BITES</span>
+              SWEET<span className="text-brand-600">BITE</span>
             </span>
           </Link>
 
