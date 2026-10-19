@@ -37,28 +37,39 @@ export default function CartDrawer() {
       user?.primaryEmailAddress?.emailAddress ||
       "Guest Customer";
 
+    const orderPayload = {
+      user_id: user?.id || null,
+      customer_name: effectiveName,
+      customer_phone: deliveryAddress
+        ? `Address: ${deliveryAddress}`
+        : "Provided via WhatsApp",
+      items: cart,
+      total_price: Number(totalPrice.toFixed(2)),
+      status: "Pending",
+    };
+
+    console.log("Submitting order to Supabase:", orderPayload);
+
     // 1. Record the order in Supabase
     try {
-      const { error } = await supabase.from("orders").insert([
-        {
-          user_id: user?.id || null,
-          customer_name: effectiveName,
-          customer_phone: deliveryAddress
-            ? `Address: ${deliveryAddress}`
-            : "Provided via WhatsApp",
-          items: cart,
-          total_price: totalPrice,
-          status: "Pending",
-        },
-      ]);
+      const { data, error } = await supabase
+        .from("orders")
+        .insert([orderPayload])
+        .select();
 
       if (error) {
-        console.error("Error saving order to Supabase:", error.message);
+        console.error("Supabase error details:", error);
+        alert(`Could not save order: ${error.message}`);
+        setIsSubmitting(false);
+        return; // Stop checkout if database insert fails
       }
-    } catch (err) {
+
+      console.log("Order saved successfully to Supabase:", data);
+    } catch (err: any) {
       console.error("Failed to save order:", err);
-    } finally {
+      alert(`Unexpected error saving order: ${err.message || err}`);
       setIsSubmitting(false);
+      return;
     }
 
     // 2. Format WhatsApp Message
@@ -80,16 +91,17 @@ export default function CartDrawer() {
     message += `💰 *Total: $${totalPrice.toFixed(2)}*%0A`;
     message += `Please confirm my order! ✨`;
 
-    // 3. Clear cart and open WhatsApp
+    // 3. Clear cart, reset UI state, and redirect to WhatsApp
     if (clearCart) clearCart();
     setIsCartOpen(false);
+    setIsSubmitting(false);
 
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, "_blank");
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
+    <div className="fixed inset-0 z-50 overflow-hidden font-sans">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity cursor-pointer"
