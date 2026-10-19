@@ -353,7 +353,7 @@ export default function AdminCmsPage() {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-widest text-neutral-700 mb-1">
-                  Description Paragraph
+                  Description Paragraph here
                 </label>
                 <textarea
                   rows={3}
