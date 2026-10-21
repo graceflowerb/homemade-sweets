@@ -239,7 +239,7 @@ export default function EditProductPage({
     <Suspense
       fallback={
         <div className="py-20 text-center text-neutral-500">
-          Loading editor.
+          Loading editor...
         </div>
       }
     >
