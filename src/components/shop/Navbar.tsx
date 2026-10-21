@@ -6,16 +6,13 @@ import { useCart } from "@/context/CartContext";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { createClient } from "@supabase/supabase-js";
 
-// Import BiHomeAlt from Bootstrap Icons
 import { BiHomeAlt } from "react-icons/bi";
-// Import the rest from Phosphor Icons
 import {
   PiShoppingCartSimpleBold,
   PiList,
   PiPackage,
   PiPlusCircle,
   PiGear,
-  PiShieldCheck,
   PiUser,
   PiX,
 } from "react-icons/pi";
@@ -103,7 +100,7 @@ export default function Navbar() {
               </Link>
             )}
 
-            {/* Admin Links */}
+            {/* Admin Links (No duplicates here) */}
             {isAdmin && (
               <>
                 <Link
@@ -126,16 +123,6 @@ export default function Navbar() {
 
           {/* Action / Auth & Cart Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            {isAdmin && (
-              <Link
-                href="/dashboard/cms"
-                className="flex items-center gap-1.5 font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-brand-600 hover:bg-brand-700 rounded-[4px] shadow-sm transition"
-              >
-                <PiShieldCheck className="text-base" />
-                Admin Panel
-              </Link>
-            )}
-
             {isLoaded &&
               (isSignedIn ? (
                 <UserButton />
@@ -226,6 +213,7 @@ export default function Navbar() {
             </Link>
           )}
 
+          {/* Admin Links (No duplicates here either) */}
           {isAdmin && (
             <>
               <Link
