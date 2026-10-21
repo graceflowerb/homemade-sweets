@@ -1,17 +1,12 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, use, Suspense } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
-export default function EditProductPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const resolvedParams = use(params);
-  const productId = resolvedParams.id;
+export const dynamic = "force-dynamic";
 
+function EditProductForm({ productId }: { productId: string }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -231,5 +226,24 @@ export default function EditProductPage({
         </button>
       </form>
     </div>
+  );
+}
+
+export default function EditProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = use(params);
+  return (
+    <Suspense
+      fallback={
+        <div className="py-20 text-center text-neutral-500">
+          Loading editor.
+        </div>
+      }
+    >
+      <EditProductForm productId={resolvedParams.id} />
+    </Suspense>
   );
 }
