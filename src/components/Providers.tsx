@@ -11,8 +11,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!mounted) {
-    // Render children directly during server prerender/SSR pass
-    // to prevent CLIENT_HOOK_DYNAMIC static bailout checks
     return <>{children}</>;
   }
 
