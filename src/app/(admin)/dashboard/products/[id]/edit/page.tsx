@@ -1,12 +1,20 @@
 "use client";
 
-import { useState, useEffect, use, Suspense } from "react";
+import { useState, useEffect, use } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
+// Force dynamic rendering so Next.js doesn't try to prerender this page at build time
 export const dynamic = "force-dynamic";
 
-function EditProductForm({ productId }: { productId: string }) {
+export default function EditProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = use(params);
+  const productId = resolvedParams.id;
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -44,7 +52,9 @@ function EditProductForm({ productId }: { productId: string }) {
       setFetching(false);
     }
 
-    loadProduct();
+    if (productId) {
+      loadProduct();
+    }
   }, [productId, router, supabase]);
 
   const handleUpdate = async (e: React.FormEvent) => {
@@ -226,24 +236,5 @@ function EditProductForm({ productId }: { productId: string }) {
         </button>
       </form>
     </div>
-  );
-}
-
-export default function EditProductPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const resolvedParams = use(params);
-  return (
-    <Suspense
-      fallback={
-        <div className="py-20 text-center text-neutral-500">
-          Loading editor...
-        </div>
-      }
-    >
-      <EditProductForm productId={resolvedParams.id} />
-    </Suspense>
   );
 }
