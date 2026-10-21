@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
-import { PiPackage, PiSignIn, PiShoppingBag } from "react-icons/pi";
+import {
+  PiShoppingBag,
+  PiPackage,
+  PiArrowRight,
+  PiClock,
+} from "react-icons/pi";
 
 export default function UserOrdersPage() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -43,91 +48,116 @@ export default function UserOrdersPage() {
     fetchUserOrders();
   }, [isLoaded, isSignedIn, user]);
 
+  // Loading state
   if (!isLoaded || loading) {
     return (
-      <div className="py-20 text-center text-neutral-500 font-sans">
-        <PiPackage className="text-4xl text-neutral-300 mx-auto mb-3 animate-pulse" />
-        <p className="text-sm">Loading your orders...</p>
+      <div className="py-24 text-center font-sans">
+        <PiPackage className="text-4xl text-neutral-300 mx-auto mb-4 animate-pulse" />
+        <p className="font-mulish text-sm text-neutral-400">
+          Loading your orders...
+        </p>
       </div>
     );
   }
 
+  // Signed-out state
   if (!isSignedIn) {
     return (
-      <div className="max-w-md mx-auto py-24 px-4 text-center space-y-4 font-sans">
-        <PiSignIn className="text-5xl text-neutral-300 mx-auto mb-2" />
-        <h1 className="font-serif text-2xl font-bold text-neutral-900">
-          Sign in to view orders
-        </h1>
-        <p className="font-mulish text-neutral-500 text-sm">
-          Please sign in to track your Sweet Bites purchases.
-        </p>
-        <div>
-          <Link
-            href="/sign-in"
-            className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-brand-600 text-white text-xs font-bold uppercase tracking-widest rounded-[4px] hover:bg-brand-700 transition"
-          >
-            <PiSignIn className="text-sm" />
-            Sign In
-          </Link>
+      <div className="max-w-md mx-auto py-24 px-4 text-center font-sans">
+        <div className="bg-white border border-neutral-100 rounded-[4px] p-10 shadow-sm space-y-4">
+          <PiShoppingBag className="text-5xl text-brand-600/60 mx-auto" />
+
+          <h1 className="font-vollkorn text-2xl font-bold text-neutral-900">
+            Sign in to view orders
+          </h1>
+
+          <p className="font-mulish text-sm text-neutral-500 leading-relaxed">
+            Please sign in to track your Sweet Bites purchases.
+          </p>
+
+          <div className="pt-2">
+            <Link
+              href="/sign-in"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold uppercase tracking-widest rounded-[4px] transition active:scale-[0.98]"
+            >
+              Sign In
+              <PiArrowRight className="text-sm" />
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 space-y-6 font-sans">
-      <div className="border-b border-neutral-200 pb-5">
-        <h1 className="font-serif text-3xl font-bold text-neutral-900 tracking-tight">
+    <div className="max-w-4xl mx-auto py-12 px-4 space-y-8 font-sans">
+      {/* Page Header */}
+      <div className="border-b border-neutral-200 pb-6">
+        <h1 className="font-vollkorn text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">
           My Orders
         </h1>
-        <p className="font-mulish text-neutral-500 text-sm mt-1">
+        <p className="font-mulish text-sm text-neutral-500 mt-2 leading-relaxed">
           Track your past and active Sweet Bites treats.
         </p>
       </div>
 
+      {/* Empty state */}
       {orders.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-[4px] border border-neutral-100">
-          <PiShoppingBag className="text-5xl text-neutral-200 mx-auto mb-3" />
-          <p className="font-mulish text-neutral-500 text-sm">
+          <PiPackage className="text-5xl text-neutral-200 mx-auto mb-4" />
+          <p className="font-mulish text-sm text-neutral-500">
             You haven't placed any orders yet.
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
+        /* Orders list */
+        <div className="space-y-4">
           {orders.map((order) => (
             <div
               key={order.id}
-              className="bg-white p-5 rounded-[4px] border border-neutral-100 shadow-sm flex flex-col md:flex-row justify-between gap-4 hover:shadow-md transition"
+              className="bg-white p-5 md:p-6 rounded-[4px] border border-neutral-100 shadow-sm hover:shadow-md transition flex flex-col md:flex-row justify-between gap-5"
             >
-              <div className="space-y-2.5">
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] px-2.5 py-1 rounded-[4px] font-bold uppercase tracking-wider bg-brand-100 text-brand-800">
+              {/* Order details */}
+              <div className="space-y-3 min-w-0">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 rounded-[4px] font-sans font-bold uppercase tracking-widest bg-brand-50 text-brand-700 border border-brand-100">
+                    <PiClock className="text-xs" />
                     {order.status}
                   </span>
-                  <span className="text-xs text-neutral-400 font-medium">
+
+                  <span className="font-mulish text-xs text-neutral-400">
                     {new Date(order.created_at).toLocaleDateString()}
                   </span>
                 </div>
-                <div className="text-sm text-neutral-700 font-mulish space-y-0.5">
+
+                <div className="space-y-1 font-mulish text-xs text-neutral-600">
                   {order.items?.map((item: any, idx: number) => (
-                    <div key={idx} className="flex items-center gap-1.5">
-                      <span className="text-brand-600 text-xs">•</span>
-                      <span>{item.title}</span>
-                      <span className="text-neutral-400 text-xs">
+                    <div key={idx} className="flex items-baseline gap-2">
+                      <span className="text-neutral-300">•</span>
+                      <span className="truncate">{item.title}</span>
+                      <span className="text-neutral-400 shrink-0">
                         (x{item.quantity})
                       </span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="text-right flex flex-col justify-between gap-1">
-                <span className="font-radio text-xl font-bold text-neutral-900">
-                  ${order.total_price.toFixed(2)}
+
+              {/* Total */}
+              <div className="flex md:flex-col items-center justify-between md:items-end md:justify-between gap-2 shrink-0">
+                <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-neutral-400">
+                  Order Total
                 </span>
-                <span className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider">
-                  WhatsApp Order
-                </span>
+
+                <div className="flex md:flex-col items-center md:items-end gap-1.5">
+                  <span className="font-radio text-xl font-bold text-brand-700">
+                    ${order.total_price.toFixed(2)}
+                  </span>
+
+                  <span className="font-mulish text-xs text-neutral-400">
+                    WhatsApp Order
+                  </span>
+                </div>
               </div>
             </div>
           ))}
