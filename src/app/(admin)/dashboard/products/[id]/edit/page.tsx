@@ -12,7 +12,7 @@ export default async function EditProductPage({
     <Suspense
       fallback={
         <div className="py-20 text-center font-sans text-neutral-500">
-          Loading editor...
+          Loading editor.......
         </div>
       }
     >
