@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
 
 export default function AdminCmsPage() {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"cms" | "orders">("cms");
+  const [activeTab, setActiveTab] = useState<"cms" | "orders" | "products">(
+    "cms",
+  );
   const [savingHero, setSavingHero] = useState(false);
   const [savingPromo, setSavingPromo] = useState(false);
 
@@ -30,15 +33,18 @@ export default function AdminCmsPage() {
   // Orders State
   const [orders, setOrders] = useState<any[]>([]);
 
+  // Products State
+  const [products, setProducts] = useState<any[]>([]);
+
   useEffect(() => {
     fetchCmsData();
     fetchOrders();
+    fetchProducts();
   }, []);
 
   const fetchCmsData = async () => {
     setLoading(true);
     try {
-      // Fetch Hero Content
       const { data: heroData } = await supabase
         .from("hero_content")
         .select("*")
@@ -52,7 +58,6 @@ export default function AdminCmsPage() {
         setHeroImageUrl(heroData.image_url || "");
       }
 
-      // Fetch Promotions
       const { data: promoData } = await supabase
         .from("promotions")
         .select("*")
@@ -77,6 +82,29 @@ export default function AdminCmsPage() {
       if (data) setOrders(data);
     } catch (err) {
       console.error("Error fetching orders:", err);
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (data) setProducts(data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  };
+
+  const handleDeleteProduct = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this treat?")) return;
+
+    const { error } = await supabase.from("products").delete().eq("id", id);
+    if (error) {
+      alert("Error deleting product: " + error.message);
+    } else {
+      setProducts(products.filter((p) => p.id !== id));
     }
   };
 
@@ -215,11 +243,10 @@ export default function AdminCmsPage() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-neutral-200 pb-6 gap-4">
         <div>
           <h1 className="text-3xl font-bold text-neutral-900 tracking-tight">
-            Admin CMS & Orders
+            Admin Dashboard
           </h1>
           <p className="text-neutral-500 mt-1 font-mulish">
-            Customize your storefront and track customer WhatsApp orders in
-            real-time.
+            Manage your store content, product catalog, and WhatsApp orders.
           </p>
         </div>
 
@@ -236,6 +263,16 @@ export default function AdminCmsPage() {
             Store CMS
           </button>
           <button
+            onClick={() => setActiveTab("products")}
+            className={`px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-[0.04rem] transition ${
+              activeTab === "products"
+                ? "bg-white shadow-xs text-neutral-900"
+                : "text-neutral-600 hover:text-neutral-900"
+            }`}
+          >
+            🧁 Products ({products.length})
+          </button>
+          <button
             onClick={() => setActiveTab("orders")}
             className={`px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-[0.04rem] transition ${
               activeTab === "orders"
@@ -243,7 +280,7 @@ export default function AdminCmsPage() {
                 : "text-neutral-600 hover:text-neutral-900"
             }`}
           >
-            📦 WhatsApp Orders {pendingCount > 0 && `(${pendingCount})`}
+            📦 Orders {pendingCount > 0 && `(${pendingCount})`}
           </button>
         </div>
       </div>
@@ -272,7 +309,7 @@ export default function AdminCmsPage() {
                       <span className="text-xs text-neutral-500">
                         📞 {order.customer_phone}
                       </span>
-                      <span className="text-xs px-2.5 py-0.5 rounded-[0.04rem] font-bold uppercase tracking-wider bg-brand- 100 text-brand- 800">
+                      <span className="text-xs px-2.5 py-0.5 rounded-[0.04rem] font-bold uppercase tracking-wider bg-brand-100 text-brand-800">
                         {order.status}
                       </span>
                     </div>
@@ -296,7 +333,10 @@ export default function AdminCmsPage() {
 
                   <div className="flex flex-col items-start md:items-end justify-between gap-2">
                     <span className="text-lg font-extrabold text-neutral-900">
-                      ${order.total_price.toFixed(2)}
+                      $
+                      {(order.total_amount || order.total_price || 0).toFixed(
+                        2,
+                      )}
                     </span>
                     <select
                       value={order.status}
@@ -316,6 +356,66 @@ export default function AdminCmsPage() {
               ))}
             </div>
           )}
+        </section>
+      ) : activeTab === "products" ? (
+        <section className="bg-white p-8 rounded-[0.04rem] shadow-sm border border-neutral-100 space-y-6">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-bold text-neutral-900">
+              Product Catalog Manager
+            </h2>
+            <Link
+              href="/dashboard/products/new"
+              className="px-4 py-2 bg-brand-600 text-white text-xs font-bold uppercase tracking-widest rounded-[0.04rem] hover:bg-brand-700 transition"
+            >
+              + Add New Treat
+            </Link>
+          </div>
+
+          <div className="divide-y divide-neutral-100 border-t border-b">
+            {products.length === 0 ? (
+              <p className="py-12 text-center text-neutral-400 font-mulish">
+                No products found.
+              </p>
+            ) : (
+              products.map((product) => (
+                <div
+                  key={product.id}
+                  className="py-4 flex items-center justify-between gap-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={product.image_url || "/placeholder.jpg"}
+                      alt={product.title}
+                      className="w-14 h-14 object-cover rounded-[0.04rem] border bg-neutral-100"
+                    />
+                    <div>
+                      <h3 className="font-semibold text-neutral-900">
+                        {product.title}
+                      </h3>
+                      <p className="text-xs text-brand-700 font-bold mt-0.5">
+                        ${product.price.toFixed(2)} / {product.unit_type}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href={`/dashboard/products/${product.id}/edit`}
+                      className="px-3 py-1.5 bg-neutral-100 text-neutral-700 text-xs font-semibold rounded-[0.04rem] hover:bg-neutral-200 transition"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => handleDeleteProduct(product.id)}
+                      className="px-3 py-1.5 bg-red-50 text-red-600 text-xs font-semibold rounded-[0.04rem] hover:bg-red-100 transition cursor-pointer"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </section>
       ) : (
         <div className="space-y-12">
