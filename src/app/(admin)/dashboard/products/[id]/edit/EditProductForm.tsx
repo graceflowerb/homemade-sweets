@@ -103,7 +103,7 @@ export default function EditProductForm({ productId }: { productId: string }) {
   if (fetching) {
     return (
       <div className="py-20 text-center font-sans text-neutral-500">
-        Loading product details...
+        Loading product details......
       </div>
     );
   }

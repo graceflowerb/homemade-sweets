@@ -1,6 +1,11 @@
 import { Suspense } from "react";
 import EditProductForm from "./EditProductForm";
 
+// Generates dynamic params for prerendering without failing build workers..
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function EditProductPage({
   params,
 }: {
@@ -12,7 +17,7 @@ export default async function EditProductPage({
     <Suspense
       fallback={
         <div className="py-20 text-center font-sans text-neutral-500">
-          Loading editor.......
+          Loading editor...
         </div>
       }
     >
