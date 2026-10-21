@@ -6,6 +6,20 @@ import { useCart } from "@/context/CartContext";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { createClient } from "@supabase/supabase-js";
 
+// Import BiHomeAlt from Bootstrap Icons
+import { BiHomeAlt } from "react-icons/bi";
+// Import the rest from Phosphor Icons
+import {
+  PiShoppingCartSimpleBold,
+  PiList,
+  PiPackage,
+  PiPlusCircle,
+  PiGear,
+  PiShieldCheck,
+  PiUser,
+  PiX,
+} from "react-icons/pi";
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -51,11 +65,12 @@ export default function Navbar() {
     }
   }, [isSignedIn, isLoaded, user]);
 
-  // Reusable class for uppercase nav links
+  // Reusable classes for nav links with icons
   const navLinkClass =
-    "font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 transition";
+    "flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 transition";
+
   const navLinkActiveClass =
-    "font-sans text-xs font-bold uppercase tracking-widest text-brand-800 bg-brand-100/70 hover:bg-brand-100 px-3.5 py-2 rounded-[0.04rem] border border-brand-200/60 transition";
+    "flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-widest text-brand-800 bg-brand-100/70 hover:bg-brand-100 px-3.5 py-2 rounded-[4px] border border-brand-200/60 transition";
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-100/60">
@@ -70,18 +85,21 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className={navLinkClass}>
+              <BiHomeAlt className="text-base" />
               Home
             </Link>
             <Link href="/#gallery" className={navLinkClass}>
+              <PiList className="text-base" />
               Menu
             </Link>
 
-            {/* Customer Orders Link (Visible to logged-in non-admins) */}
+            {/* Customer Orders Link */}
             {isSignedIn && !isAdmin && (
               <Link href="/orders" className={navLinkClass}>
-                📦 My Orders
+                <PiPackage className="text-base" />
+                My Orders
               </Link>
             )}
 
@@ -92,13 +110,15 @@ export default function Navbar() {
                   href="/dashboard/products/new"
                   className={navLinkActiveClass}
                 >
-                  + Add Product
+                  <PiPlusCircle className="text-base" />
+                  Add Product
                 </Link>
                 <Link
                   href="/dashboard/cms"
-                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-2 rounded-[0.04rem] transition"
+                  className="flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 bg-neutral-100 hover:bg-neutral-200 px-3.5 py-2 rounded-[4px] transition"
                 >
-                  ⚙️ Store CMS & Orders
+                  <PiGear className="text-base" />
+                  Store CMS
                 </Link>
               </>
             )}
@@ -109,8 +129,9 @@ export default function Navbar() {
             {isAdmin && (
               <Link
                 href="/dashboard/cms"
-                className="font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-brand-600 hover:bg-brand-700 rounded-[0.04rem] shadow-sm transition"
+                className="flex items-center gap-1.5 font-sans px-4 py-2 text-xs font-bold uppercase tracking-widest text-white bg-brand-600 hover:bg-brand-700 rounded-[4px] shadow-sm transition"
               >
+                <PiShieldCheck className="text-base" />
                 Admin Panel
               </Link>
             )}
@@ -121,8 +142,9 @@ export default function Navbar() {
               ) : (
                 <Link
                   href="/sign-in"
-                  className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-brand-600 px-3 py-2 transition"
+                  className="flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-brand-600 px-3 py-2 transition"
                 >
+                  <PiUser className="text-base" />
                   Sign In
                 </Link>
               ))}
@@ -130,12 +152,12 @@ export default function Navbar() {
             {/* Shopping Cart Button */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2.5 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04rem] transition flex items-center justify-center cursor-pointer"
+              className="relative p-2.5 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[4px] transition flex items-center justify-center cursor-pointer"
               aria-label="Open Cart"
             >
-              <span className="text-lg">🛒</span>
+              <PiShoppingCartSimpleBold className="text-xl" />
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wider w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
+                <span className="absolute -top-1.5 -right-1.5 bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wider w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
                   {itemCount}
                 </span>
               )}
@@ -146,10 +168,10 @@ export default function Navbar() {
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[0.04rem] transition flex items-center justify-center"
+              className="relative p-2 bg-brand-100 hover:bg-brand-200 text-brand-900 rounded-[4px] transition flex items-center justify-center"
               aria-label="Open Cart"
             >
-              <span className="text-base">🛒</span>
+              <PiShoppingCartSimpleBold className="text-lg" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wider w-4 h-4 rounded-full flex items-center justify-center border border-white">
                   {itemCount}
@@ -160,37 +182,13 @@ export default function Navbar() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               type="button"
-              className="p-2 rounded-[0.04rem] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:outline-none"
+              className="p-2 rounded-[4px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:outline-none transition"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <PiX className="h-6 w-6" />
               ) : (
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
+                <PiList className="h-6 w-6" />
               )}
             </button>
           </div>
@@ -203,15 +201,17 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="block font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 py-1"
+            className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 py-1 transition"
           >
+            <BiHomeAlt className="text-lg" />
             Home
           </Link>
           <Link
             href="/#gallery"
             onClick={() => setMobileMenuOpen(false)}
-            className="block font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 py-1"
+            className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 py-1 transition"
           >
+            <PiList className="text-lg" />
             Menu
           </Link>
 
@@ -219,9 +219,10 @@ export default function Navbar() {
             <Link
               href="/orders"
               onClick={() => setMobileMenuOpen(false)}
-              className="block font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 py-1"
+              className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest text-neutral-700 hover:text-brand-600 py-1 transition"
             >
-              📦 My Orders
+              <PiPackage className="text-lg" />
+              My Orders
             </Link>
           )}
 
@@ -230,16 +231,18 @@ export default function Navbar() {
               <Link
                 href="/dashboard/products/new"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block font-sans text-sm font-bold uppercase tracking-widest text-brand-700 py-1"
+                className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest text-brand-700 py-1 transition"
               >
-                + Add Product
+                <PiPlusCircle className="text-lg" />
+                Add Product
               </Link>
               <Link
                 href="/dashboard/cms"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block font-sans text-sm font-bold uppercase tracking-widest text-brand-700 py-1"
+                className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest text-brand-700 py-1 transition"
               >
-                ⚙️ Store CMS & Orders
+                <PiGear className="text-lg" />
+                Store CMS
               </Link>
             </>
           )}
@@ -257,9 +260,10 @@ export default function Navbar() {
                 <Link
                   href="/sign-in"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-sans text-sm font-bold uppercase tracking-widest text-brand-600 hover:text-brand-700"
+                  className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest text-brand-600 hover:text-brand-700 transition"
                 >
-                  Sign In &rarr;
+                  <PiUser className="text-lg" />
+                  Sign In
                 </Link>
               ))}
           </div>
