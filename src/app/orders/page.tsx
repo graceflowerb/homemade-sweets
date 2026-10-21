@@ -93,7 +93,7 @@ export default function UserOrdersPage() {
     <div className="max-w-4xl mx-auto py-12 px-4 space-y-8 font-sans">
       {/* Page Header */}
       <div className="border-b border-neutral-200 pb-6">
-        <h1 className="font-vollkorn text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">
+        <h1 className="font-vollkorn text-3xl md:text-4xl font-bold text-white tracking-tight">
           My Orders
         </h1>
         <p className="font-mulish text-sm text-neutral-500 mt-2 leading-relaxed">
@@ -120,7 +120,7 @@ export default function UserOrdersPage() {
               {/* Order details */}
               <div className="space-y-3 min-w-0">
                 <div className="flex items-center gap-3 flex-wrap">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 rounded-[4px] font-sans font-bold uppercase tracking-widest bg-brand-50 text-brand-700 border border-brand-100">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 rounded-[4px] font-sans font-bold uppercase tracking-widest bg-brand-50 text-brand-700 border border-brand-900">
                     <PiClock className="text-xs" />
                     {order.status}
                   </span>
