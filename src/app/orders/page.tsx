@@ -151,7 +151,7 @@ export default function UserOrdersPage() {
 
                 <div className="flex md:flex-col items-center md:items-end gap-1.5">
                   <span className="font-radio text-xl font-bold text-brand-700">
-                    ${order.total_price.toFixed(2)}
+                    DHS {order.total_price.toFixed(2)}
                   </span>
 
                   <span className="font-mulish text-xs text-neutral-400">
