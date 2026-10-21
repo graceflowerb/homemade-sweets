@@ -100,7 +100,7 @@ async function ProductList() {
         ))
       ) : (
         <div className="col-span-full py-12 text-center text-neutral-500 bg-white rounded-2xl border border-neutral-100">
-          {/* Empty state uses Mulish for clean readability */}
+          {/* Empty state uses Mulish for readability */}
           <p className="font-mulish text-lg">No treats uploaded yet.</p>
         </div>
       )}
