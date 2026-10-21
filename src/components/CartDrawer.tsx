@@ -4,6 +4,16 @@ import { useCart } from "@/context/CartContext";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { createClient } from "@/lib/supabase/client";
+import {
+  PiShoppingBag,
+  PiX,
+  PiMinus,
+  PiPlus,
+  PiTrash,
+  PiShoppingCart,
+  PiArrowRight,
+} from "react-icons/pi";
+import { BiLogoWhatsapp } from "react-icons/bi";
 
 export default function CartDrawer() {
   const {
@@ -121,15 +131,18 @@ export default function CartDrawer() {
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-100 bg-white">
-            <h2 className="font-vollkorn font-bold text-xl uppercase tracking-widest text-neutral-900">
-              Your Sweet Bag 🛍️
-            </h2>
+            <div className="flex items-center gap-2.5">
+              <PiShoppingBag className="text-xl text-brand-600" />
+              <h2 className="font-vollkorn font-bold text-xl uppercase tracking-widest text-neutral-900">
+                Your Sweet Bag
+              </h2>
+            </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="text-neutral-400 hover:text-neutral-600 text-2xl font-light p-1 cursor-pointer transition"
+              className="text-neutral-400 hover:text-neutral-600 p-1 cursor-pointer transition"
               aria-label="Close cart"
             >
-              ✕
+              <PiX className="h-6 w-6" />
             </button>
           </div>
 
@@ -137,15 +150,15 @@ export default function CartDrawer() {
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {cart.length === 0 ? (
               <div className="text-center py-20">
-                <p className="text-5xl mb-4">🧁</p>
-                <p className="font-mulish text-neutral-500 text-lg">
+                <PiShoppingCart className="text-6xl text-neutral-200 mx-auto mb-4" />
+                <p className="font-mulish text-neutral-500 text-lg mb-6">
                   Your cart is empty.
                 </p>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="font-sans mt-4 text-xs font-bold uppercase tracking-widest text-brand-600 hover:text-brand-700 transition cursor-pointer"
+                  className="font-sans inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-brand-600 hover:text-brand-700 transition cursor-pointer"
                 >
-                  Continue Shopping &rarr;
+                  Continue Shopping <PiArrowRight className="text-sm" />
                 </button>
               </div>
             ) : (
@@ -168,7 +181,7 @@ export default function CartDrawer() {
                     </p>
 
                     <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center gap-2 bg-white border border-neutral-200 rounded-[4px] p-0.5">
+                      <div className="flex items-center gap-1 bg-white border border-neutral-200 rounded-[4px] p-0.5">
                         <button
                           onClick={() =>
                             updateQuantity(
@@ -177,9 +190,9 @@ export default function CartDrawer() {
                                 (item.unit_type === "grams" ? 50 : 1),
                             )
                           }
-                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-100 transition text-sm cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 hover:bg-brand-50 hover:border-brand-100 hover:text-brand-700 transition cursor-pointer"
                         >
-                          -
+                          <PiMinus className="text-sm" />
                         </button>
                         <span className="font-sans text-xs font-bold text-neutral-800 w-8 text-center">
                           {item.quantity}
@@ -192,18 +205,18 @@ export default function CartDrawer() {
                                 (item.unit_type === "grams" ? 50 : 1),
                             )
                           }
-                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-100 transition text-sm cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 hover:bg-brand-50 hover:border-brand-100 hover:text-brand-700 transition cursor-pointer"
                         >
-                          +
+                          <PiPlus className="text-sm" />
                         </button>
                       </div>
 
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="text-neutral-400 hover:text-red-500 text-xs px-2 py-1 transition cursor-pointer"
+                        className="text-neutral-400 hover:text-red-500 p-1.5 transition cursor-pointer"
                         aria-label="Remove item"
                       >
-                        🗑️
+                        <PiTrash className="text-lg" />
                       </button>
                     </div>
                   </div>
@@ -221,21 +234,21 @@ export default function CartDrawer() {
                   placeholder="Your Name"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Delivery Address / Area"
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
                 <input
                   type="text"
                   placeholder="Special instructions (optional)"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="font-sans w-full px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
+                  className="font-sans w-full px-4 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-[4px] outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition placeholder:text-neutral-400"
                 />
               </div>
 
@@ -260,7 +273,7 @@ export default function CartDrawer() {
                   </>
                 ) : (
                   <>
-                    <span className="text-base">💬</span>
+                    <BiLogoWhatsapp className="text-lg" />
                     <span>Order via WhatsApp</span>
                   </>
                 )}
