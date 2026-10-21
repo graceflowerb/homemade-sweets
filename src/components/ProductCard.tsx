@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { PiMinus, PiPlus, PiShoppingCart } from "react-icons/pi";
 
 export default function ProductCard({ product }: { product: any }) {
   const { addToCart } = useCart();
@@ -26,8 +27,9 @@ export default function ProductCard({ product }: { product: any }) {
   };
 
   return (
-    <div className="flex-shrink-0 bg-white rounded-[3px] shadow-sm border border-neutral-100 overflow-hidden snap-start flex flex-col justify-between group hover:shadow-md transition w-full">
-      <div className="relative h-64 w-full bg-neutral-100 overflow-hidden">
+    <div className="flex-shrink-0 bg-white rounded-[4px] shadow-sm border border-neutral-100 overflow-hidden snap-start flex flex-col justify-between group hover:shadow-md transition w-full">
+      {/* Compact Image Area */}
+      <div className="relative h-48 w-full bg-neutral-100 overflow-hidden">
         {product.image_url && product.image_url.startsWith("http") ? (
           <img
             src={product.image_url}
@@ -35,66 +37,69 @@ export default function ProductCard({ product }: { product: any }) {
             className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-neutral-400 text-sm bg-neutral-50">
-            No Image Available
+          <div className="flex items-center justify-center h-full text-neutral-400 text-xs font-medium bg-neutral-50">
+            No Image
           </div>
         )}
       </div>
 
-      <div className="p-5 flex flex-col flex-grow">
-        {/* Title - Using Source Serif 4 for elegance */}
-        <h3 className="font-serif font-semibold text-lg text-neutral-900 mb-1 leading-tight">
+      {/* Compact Content Area */}
+      <div className="p-4 flex flex-col flex-grow">
+        {/* Title */}
+        <h3 className="font-serif font-semibold text-base text-neutral-900 mb-1 leading-tight line-clamp-1">
           {product.title}
         </h3>
 
-        {/* Description - Using Mulish for clean readability */}
-        <p className="font-mulish text-neutral-500 text-sm line-clamp-2 mb-4 flex-grow">
+        {/* Description */}
+        <p className="font-mulish text-neutral-500 text-xs line-clamp-2 mb-3 flex-grow leading-relaxed">
           {product.description}
         </p>
 
         {/* Pricing & Unit Info */}
-        <div className="flex items-center justify-between mb-4 pt-3 border-t border-neutral-100">
-          <div>
-            {/* Price - Using Radio Canada for distinctive pricing */}
-            <span className="font-radio text-lg font-bold text-brand-700">
+        <div className="flex items-center justify-between mb-3 pt-2 border-t border-neutral-100">
+          <div className="flex items-baseline gap-1">
+            <span className="font-radio text-base font-bold text-brand-700">
               ${product.price.toFixed(2)}
             </span>
-            <span className="font-mulish text-xs text-neutral-400 ml-1">
+            <span className="font-mulish text-[10px] text-neutral-400 font-medium">
               / {unitType}
             </span>
           </div>
-          {/* Min badge - Using Mulish */}
-          <span className="font-mulish text-xs bg-brand-50 text-brand-700 font-medium px-2.5 py-1 rounded-[4px]">
-            Min: {minQty} {unitType}
+          <span className="font-mulish text-[10px] bg-brand-50 text-brand-700 font-semibold px-2 py-0.5 rounded-[4px]">
+            Min: {minQty}
           </span>
         </div>
 
         {/* Interactive Quantity Selector & Add to Cart Button */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between bg-neutral-50 p-1.5 rounded-[4px] border border-neutral-200">
+        <div className="space-y-2.5">
+          <div className="flex items-center justify-between bg-neutral-50 p-1 rounded-[4px] border border-neutral-200">
             <button
               onClick={handleDecrement}
-              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition flex items-center justify-center text-sm"
+              className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 hover:bg-brand-50 hover:border-brand-100 hover:text-brand-700 transition cursor-pointer"
+              aria-label="Decrease quantity"
             >
-              -
+              <PiMinus className="text-sm" />
             </button>
-            {/* Quantity display - Using DM Sans (default) */}
-            <span className="font-sans text-sm font-semibold text-neutral-800">
-              {qty} {unitType}
+
+            <span className="font-sans text-xs font-bold text-neutral-800 w-8 text-center">
+              {qty}
             </span>
+
             <button
               onClick={handleIncrement}
-              className="w-8 h-8 rounded-[4px] bg-white border border-neutral-200 text-neutral-700 font-bold hover:bg-brand-50 hover:border-brand-200 transition flex items-center justify-center text-sm"
+              className="w-7 h-7 flex items-center justify-center bg-white border border-neutral-200 rounded-[3px] text-neutral-700 hover:bg-brand-50 hover:border-brand-100 hover:text-brand-700 transition cursor-pointer"
+              aria-label="Increase quantity"
             >
-              +
+              <PiPlus className="text-sm" />
             </button>
           </div>
 
-          {/* Add to Cart button - Using DM Sans (default) */}
+          {/* Add to Cart button */}
           <button
             onClick={handleAddToCart}
-            className="font-sans w-full py-2.5 tracking-[0.06em] bg-brand-600 hover:bg-brand-700 text-white uppercase font-semibold text-sm rounded-[4px] transition shadow-xs active:scale-[0.98]"
+            className="font-sans w-full py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold uppercase tracking-widest rounded-[4px] transition shadow-xs active:scale-[0.98] flex items-center justify-center gap-1.5"
           >
+            <PiShoppingCart className="text-sm" />
             Add to Cart
           </button>
         </div>
