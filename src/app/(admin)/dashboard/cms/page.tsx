@@ -40,6 +40,26 @@ export default function AdminCmsPage() {
     fetchCmsData();
     fetchOrders();
     fetchProducts();
+
+    // Realtime subscription for live order tracking without manual refresh
+    const channel = supabase
+      .channel("admin-orders-realtime")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "orders",
+        },
+        () => {
+          fetchOrders();
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchCmsData = async () => {
@@ -87,7 +107,7 @@ export default function AdminCmsPage() {
 
   const fetchProducts = async () => {
     try {
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from("products")
         .select("*")
         .order("created_at", { ascending: false });
