@@ -91,7 +91,7 @@ export default function CartDrawer() {
     }
 
     // 2. Format WhatsApp Message
-    const phoneNumber = "00971524257571";
+    const phoneNumber = "+97152427571";
 
     let message = `🛒 *New Order from Sweet Bites*%0A`;
     if (effectiveName) message += `👤 *Name:* ${effectiveName}%0A`;
