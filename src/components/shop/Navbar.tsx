@@ -75,9 +75,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Brand / Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <span className="text-2xl">🧁</span>
             <span className="font-vollkorn font-bold text-xl uppercase tracking-widest text-neutral-900 group-hover:text-brand-600 transition">
-              SWEET<span className="text-brand-600">BITE</span>
+              أتاي<span className="text-brand-600">دار</span>
             </span>
           </Link>
 
