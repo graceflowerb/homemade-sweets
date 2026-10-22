@@ -59,7 +59,7 @@ export default function ProductCard({ product }: { product: any }) {
         <div className="flex items-center justify-between mb-3 pt-2 border-t border-neutral-100">
           <div className="flex items-baseline gap-1">
             <span className="font-radio text-base font-bold text-brand-700">
-              ${product.price.toFixed(2)}
+              DHS {product.price.toFixed(2)}
             </span>
             <span className="font-mulish text-[10px] text-neutral-400 font-medium">
               / {unitType}
