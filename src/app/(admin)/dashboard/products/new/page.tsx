@@ -127,7 +127,7 @@ export default function NewProductPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-neutral-700 mb-2">
-              Price ($)
+              Price (DHS)
             </label>
             <input
               type="number"
